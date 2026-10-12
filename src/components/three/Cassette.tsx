@@ -91,14 +91,8 @@ export function Cassette({ project, distance = 0 }: Props) {
   const shellHex = dark ? shade(project.shell, 0.3) : project.shell
   const shellMap = useMemo(() => makeShellTexture(shellHex), [shellHex])
 
-  useEffect(
-    () => () => {
-      geometry.dispose()
-      label.dispose()
-      shellMap.dispose()
-    },
-    [geometry, label, shellMap],
-  )
+  useEffect(() => () => geometry.dispose(), [geometry])
+  useEffect(() => () => label.dispose(), [label])
 
   const dim = Math.min(1, Math.max(0, distance))
   const opacity = THREE.MathUtils.lerp(1, 0.22, dim)

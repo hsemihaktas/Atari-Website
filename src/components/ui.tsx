@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowUpRight } from './icons'
 import { ARROW, EASE, T, textLinkClass } from './interaction'
 
@@ -17,6 +18,7 @@ export function Action({
   arrow = true,
   className = '',
   children,
+  href,
   ...rest
 }: ActionProps) {
   const skin =
@@ -24,10 +26,22 @@ export function Action({
       ? 'bg-ink text-paper ring-ink hover:bg-transparent hover:text-ink'
       : 'ring-hair-strong text-ink hover:bg-ink hover:text-paper hover:ring-ink'
 
+  const classes = `group inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[16px] ring-1 ring-inset transition-colors ${T} ${EASE} ${skin} ${className}`
+
+  if (href && href.startsWith('/') && !href.startsWith('//')) {
+    return (
+      <Link to={href} className={classes}>
+        {children}
+        {arrow && <ArrowUpRight className={ARROW} />}
+      </Link>
+    )
+  }
+
   return (
     <a
+      href={href}
       {...rest}
-      className={`group inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[16px] ring-1 ring-inset transition-colors ${T} ${EASE} ${skin} ${className}`}
+      className={classes}
     >
       {children}
       {arrow && <ArrowUpRight className={ARROW} />}
@@ -38,9 +52,20 @@ export function Action({
 /** Satır içi bağlantı — alt çizgi ve ok birlikte hareket eder. */
 type TextLinkProps = { children: ReactNode } & ComponentPropsWithoutRef<'a'>
 
-export function TextLink({ className = '', children, ...rest }: TextLinkProps) {
+export function TextLink({ className = '', children, href, ...rest }: TextLinkProps) {
+  const classes = textLinkClass(className)
+
+  if (href && href.startsWith('/') && !href.startsWith('//')) {
+    return (
+      <Link to={href} className={classes}>
+        {children}
+        <ArrowUpRight className={ARROW} />
+      </Link>
+    )
+  }
+
   return (
-    <a {...rest} className={textLinkClass(className)}>
+    <a href={href} {...rest} className={classes}>
       {children}
       <ArrowUpRight className={ARROW} />
     </a>

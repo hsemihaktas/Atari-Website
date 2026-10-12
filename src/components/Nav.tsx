@@ -65,17 +65,17 @@ export function Nav() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-paper via-paper/95 to-paper/0 backdrop-blur-[2px]" />
 
-      <div className="relative mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-6 py-5 md:px-10">
+      <div className="relative mx-auto flex max-w-[1600px] items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5 md:px-10">
         <Link
           to="/"
-          className="group flex shrink-0 items-center gap-2.5"
+          className="group flex shrink-0 items-center gap-2 sm:gap-2.5"
           aria-label={site.fullName}
         >
           <CassetteGlyph className="h-5 w-5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-6" />
-          <span className="text-[15px] font-medium tracking-tight">{site.fullName}</span>
+          <span className="text-[14px] font-medium tracking-tight sm:text-[15px]">{site.fullName}</span>
         </Link>
 
-        <nav className="flex items-center gap-5 text-[15px] sm:gap-7">
+        <nav className="flex items-center gap-3 text-[13.5px] sm:gap-7 sm:text-[15px]">
           <NavItem to="/" active={isActive('/')}>
             {t.nav.home}
           </NavItem>

@@ -56,8 +56,8 @@ export default function ProjectDetail() {
   return (
     <article>
       {/* ---------------- üst: kaset + kimlik kartı ---------------- */}
-      <header className="grid min-h-[100svh] grid-cols-[1fr_1fr] items-center gap-x-4 px-6 md:gap-x-8 lg:px-10 lg:gap-x-16">
-        <div className="flex flex-col justify-center py-28">
+      <header className="grid min-h-[100svh] grid-cols-1 items-center gap-x-4 px-6 md:gap-x-8 lg:grid-cols-2 lg:gap-x-16 lg:px-10">
+        <div className="flex flex-col justify-center pt-32 pb-10 lg:py-28">
           <Link
             to="/projects"
             className="group mb-8 inline-flex w-fit items-center gap-2 text-[15px] text-mute transition-colors hover:text-ink"
@@ -101,7 +101,7 @@ export default function ProjectDetail() {
           )}
         </div>
 
-        <div className="relative h-[62svh] w-full">
+        <div className="relative h-[46vh] w-full pb-10 sm:h-[56vh] lg:h-[62svh] lg:pb-0">
           <CassetteTile project={project} className="h-full" />
         </div>
       </header>

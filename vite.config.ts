@@ -32,7 +32,8 @@ function absoluteOgUrls(): Plugin {
   const site = normalizeSite(
     process.env.SITE_URL ??
       process.env.VERCEL_PROJECT_PRODUCTION_URL ??
-      process.env.VERCEL_URL,
+      process.env.VERCEL_URL ??
+      'https://rewosama.vercel.app',
   )
 
   return {
@@ -45,7 +46,7 @@ function absoluteOgUrls(): Plugin {
         if (!site) return html
         return html
           .replaceAll('content="/og.png"', `content="${site}/og.png"`)
-          .replaceAll('property="og:url"', `property="og:url" content="${site}/"`)
+          .replaceAll('property="og:url" content="/"', `property="og:url" content="${site}/"`)
       },
     },
   }
@@ -68,7 +69,7 @@ function spaFallbackHtml(): Plugin {
     apply: 'build',
     // Vite 8'de closeBundle build sırasında çalışmıyor; writeBundle güvenilir.
     writeBundle(options, bundle) {
-      const outDir = options.dir ?? resolve(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
+      const outDir = options.dir ?? resolve(dirname(fileURLToPath(import.meta.url)), 'dist')
       const index = resolve(outDir, 'index.html')
       // index.html bu bundle'da değilse tekrar dene
       const fromBundle = Object.values(bundle).find((c) => c.fileName === 'index.html')
@@ -84,6 +85,21 @@ function spaFallbackHtml(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), absoluteOgUrls(), spaFallbackHtml()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (
+            id.includes('node_modules/three') ||
+            id.includes('node_modules/@react-three') ||
+            id.includes('node_modules/three-stdlib')
+          ) {
+            return 'three-vendor'
+          }
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

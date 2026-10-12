@@ -39,8 +39,8 @@ export default function Contact() {
   return (
     <article>
       {/* ---------------- üst: başlık + iletişim kaseti ---------------- */}
-      <header className="grid min-h-[100svh] grid-cols-[1fr_1fr] items-center gap-x-4 px-6 md:gap-x-8 lg:px-10 lg:gap-x-16">
-        <div className="flex flex-col justify-center py-28">
+      <header className="grid min-h-[100svh] grid-cols-1 items-center gap-x-4 px-6 md:gap-x-8 lg:grid-cols-2 lg:gap-x-16 lg:px-10">
+        <div className="flex flex-col justify-center pt-32 pb-10 lg:py-28">
           <p className="label text-mute">{c.kicker}</p>
 
           <h1 className="mt-6 max-w-[15ch] text-[clamp(2.2rem,5.2vw,4.5rem)] leading-[1.04] tracking-[-0.035em]">
@@ -61,7 +61,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="relative h-[62svh] w-full">
+        <div className="relative h-[46vh] w-full pb-10 sm:h-[56vh] lg:h-[62svh] lg:pb-0">
           <CassetteTile project={CONTACT} className="h-full" />
         </div>
       </header>

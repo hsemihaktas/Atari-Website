@@ -260,7 +260,12 @@ export function makeLabelTexture(p: Project): THREE.CanvasTexture {
 }
 
 /** Kabuk için gren + hafif çizikler — düz plastik görünmesin. */
+const shellCache = new Map<string, THREE.CanvasTexture>()
+
 export function makeShellTexture(hex: string): THREE.CanvasTexture {
+  const cached = shellCache.get(hex)
+  if (cached) return cached
+
   const S = 512
   const canvas = document.createElement('canvas')
   canvas.width = S
@@ -294,5 +299,6 @@ export function makeShellTexture(hex: string): THREE.CanvasTexture {
   const tex = new THREE.CanvasTexture(canvas)
   tex.wrapS = tex.wrapT = THREE.RepeatWrapping
   tex.repeat.set(3, 3)
+  shellCache.set(hex, tex)
   return tex
 }

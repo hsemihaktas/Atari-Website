@@ -1,20 +1,15 @@
-import { useEffect } from 'react'
-import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import Home from '@/pages/Home'
-import About from '@/pages/About'
-import Projects from '@/pages/Projects'
-import Contact from '@/pages/Contact'
-import ProjectDetail from '@/pages/ProjectDetail'
-import NotFound from '@/pages/NotFound'
 import { useContent } from '@/i18n'
 
-/** /projeler/arc → /projects/arc */
-function LegacyProjectRedirect() {
-  const { id } = useParams()
-  return <Navigate to={`/projects/${id}`} replace />
-}
+const About = lazy(() => import('@/pages/About'))
+const Projects = lazy(() => import('@/pages/Projects'))
+const Contact = lazy(() => import('@/pages/Contact'))
+const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -31,18 +26,17 @@ export default function App() {
     <div className="min-h-dvh">
       <ScrollToTop />
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hakkimda" element={<About />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/projects/:id" element={<ProjectDetail />} />
-        {/* eski Türkçe adresler — dışarıda paylaşılmış olabilir */}
-        <Route path="/projeler" element={<Navigate to="/projects" replace />} />
-        <Route path="/projeler/:id" element={<LegacyProjectRedirect />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       <Footer />
       <script type="application/ld+json">
         {JSON.stringify({

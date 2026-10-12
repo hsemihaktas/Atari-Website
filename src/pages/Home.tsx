@@ -16,7 +16,7 @@ import { useContent, useT } from '@/i18n'
 export default function Home() {
   const t = useT()
   const { about, feed, featured, funList, projects, site } = useContent()
-  const [lead, ...introRest] = about[0].body
+  const lead = about[0].body[0]
 
   return (
     <>
@@ -33,14 +33,12 @@ export default function Home() {
             <RichText text={t.home.headline} />
           </h1>
 
-          <div className="mt-10 max-w-[46ch] space-y-6 text-[clamp(1.05rem,1.35vw,1.2rem)] leading-[1.5] tracking-[-0.01em] text-ink-soft">
-            {about[0].body.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
-          </div>
+          <p className="mt-10 max-w-[46ch] text-[clamp(1.05rem,1.35vw,1.2rem)] leading-[1.5] tracking-[-0.01em] text-ink-soft">
+            {lead}
+          </p>
 
           <div className="mt-12 flex flex-wrap items-center gap-3">
-            <Action href="#isler">{t.home.ctaPrimary}</Action>
+            <Action href="#work">{t.home.ctaPrimary}</Action>
             <Action href={`mailto:${site.email}`} variant="outline" arrow={false}>
               {t.home.ctaSecondary}
             </Action>
@@ -70,21 +68,9 @@ export default function Home() {
       <section className="border-t border-hair py-24">
         <SectionHead title={t.home.aboutHeading} />
 
-        {/* giriş — büyük punto, tek kolon */}
-        <p className="mt-12 max-w-[30ch] text-[clamp(1.35rem,2.7vw,2.15rem)] leading-[1.3] tracking-[-0.025em]">
-          {lead}
-        </p>
-        {introRest.length > 0 && (
-          <div className="mt-8 max-w-[52ch] space-y-5 text-[17px] leading-relaxed text-ink-soft">
-            {introRest.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
-          </div>
-        )}
-
-        {/* ayrıntı blokları — etiket üstte, metin tam genişlikte */}
-        <div className="mt-20 grid gap-x-20 gap-y-14 md:grid-cols-2">
-          {about.slice(1).map((section) => (
+        {/* 3 bölüm — Başlangıç, Yaptığım iş, Boşta */}
+        <div className="mt-14 grid gap-x-16 gap-y-12 md:grid-cols-3">
+          {about.map((section) => (
             <TextBlock key={section.heading} label={section.heading}>
               {section.body.map((p) => (
                 <p key={p.slice(0, 24)}>{p}</p>
@@ -106,7 +92,7 @@ export default function Home() {
 
       {/* ---------------- Seçili işler: tam ekran, 3 kaset yan yana ---------------- */}
       <section
-        id="isler"
+        id="work"
         className="flex min-h-[100svh] scroll-mt-16 flex-col justify-center border-t border-hair py-16"
       >
         <SectionHead
@@ -123,7 +109,7 @@ export default function Home() {
           {featured.map((p) => (
             <Link
               key={p.id}
-              to="/projects"
+              to={`/projects/${p.id}`}
               className="group flex flex-col items-center text-center"
             >
               <CassetteTile project={p} />
