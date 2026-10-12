@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { AtariScene } from '@/components/three/AtariScene'
 import { CassetteTile } from '@/components/three/CassetteTile'
 import { ArrowUpRight, CassetteGlyph } from '@/components/icons'
-import { Action } from '@/components/ui'
+import { Action, RichText } from '@/components/ui'
 import { ARROW, textLinkClass } from '@/components/interaction'
 import {
   ContactCta,
@@ -11,23 +11,11 @@ import {
   SectionHead,
   TextBlock,
 } from '@/components/sections'
-import { about, feed, featured, funList, projects, site } from '@/data/site'
-
-const capabilities: [string, string][] = [
-  ['Ürün tasarımı', 'Araştırmadan piksele kadar uçtan uca akış.'],
-  ['Tasarım sistemleri', 'Bileşen kütüphaneleri, token mimarisi, dokümantasyon.'],
-  ['Etkileşimli arayüzler', 'Three.js, WebGL, hareket tasarımı ve prototipleme.'],
-  ['Ön yüz mühendisliği', 'React, TypeScript, performans ve erişilebilirlik.'],
-]
-
-const quickFacts: [string, string][] = [
-  ['Konum', site.location],
-  ['Odak', 'Tasarım + kod'],
-  ['Deneyim', '8+ yıl'],
-  ['Durum', 'Yeni projelere açık'],
-]
+import { useContent, useT } from '@/i18n'
 
 export default function Home() {
+  const t = useT()
+  const { about, feed, featured, funList, projects, site } = useContent()
   const [lead, ...introRest] = about[0].body
 
   return (
@@ -42,9 +30,7 @@ export default function Home() {
           <p className="label mt-8 text-mute">{site.title}</p>
 
           <h1 className="mt-6 max-w-[17ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.16] tracking-[-0.03em]">
-            <span className="font-semibold">{site.name}</span>, {site.city}&rsquo;da
-            tasarımı ve kodu aynı <span className="font-semibold">kasette</span>{' '}
-            topluyorum.
+            <RichText text={t.home.headline} />
           </h1>
 
           <div className="mt-10 max-w-[46ch] space-y-6 text-[clamp(1.05rem,1.35vw,1.2rem)] leading-[1.5] tracking-[-0.01em] text-ink-soft">
@@ -54,15 +40,15 @@ export default function Home() {
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3">
-            <Action href="#isler">Seçili işler</Action>
+            <Action href="#isler">{t.home.ctaPrimary}</Action>
             <Action href={`mailto:${site.email}`} variant="outline" arrow={false}>
-              İletişim
+              {t.home.ctaSecondary}
             </Action>
           </div>
 
           <div className="mt-12 flex items-center gap-3 label text-mute">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Yeni projelere açık
+            {t.home.availability}
           </div>
         </div>
 
@@ -74,7 +60,7 @@ export default function Home() {
             <AtariScene className="absolute inset-0" />
           </div>
           <p className="pointer-events-none absolute inset-x-0 bottom-0 text-center font-mono text-[12px] uppercase tracking-[0.18em] text-mute">
-            Home Arcade · Model 1977
+            {t.home.sceneCaption}
           </p>
         </div>
       </section>
@@ -82,7 +68,7 @@ export default function Home() {
       <div className="mx-auto max-w-[1600px] px-6 md:px-10">
         {/* ---------------- Hakkımda ---------------- */}
       <section className="border-t border-hair py-24">
-        <SectionHead title="Hakkımda" />
+        <SectionHead title={t.home.aboutHeading} />
 
         {/* giriş — büyük punto, tek kolon */}
         <p className="mt-12 max-w-[30ch] text-[clamp(1.35rem,2.7vw,2.15rem)] leading-[1.3] tracking-[-0.025em]">
@@ -109,7 +95,7 @@ export default function Home() {
 
         {/* hızlı bilgiler */}
         <dl className="mt-20 grid grid-cols-2 gap-x-10 gap-y-8 border-t border-hair pt-10 sm:grid-cols-4">
-          {quickFacts.map(([k, v]) => (
+          {t.home.quickFacts.map(([k, v]) => (
             <div key={k}>
               <dt className="label text-mute">{k}</dt>
               <dd className="mt-3 text-[16px] text-ink-soft">{v}</dd>
@@ -124,10 +110,10 @@ export default function Home() {
         className="flex min-h-[100svh] scroll-mt-16 flex-col justify-center border-t border-hair py-16"
       >
         <SectionHead
-          title="Seçili işler"
+          title={t.home.selectedHeading}
           meta={
             <Link to="/projeler" className={textLinkClass()}>
-              Tümü ({projects.length})
+              {t.home.all.replace('{count}', String(projects.length))}
               <ArrowUpRight className={ARROW} />
             </Link>
           }
@@ -155,12 +141,12 @@ export default function Home() {
                   {p.summary}
                 </p>
                 <ul className="mt-4 hidden flex-wrap justify-center gap-1.5 sm:flex">
-                  {p.tags.map((t) => (
+                  {p.tags.map((tag) => (
                     <li
-                      key={t}
+                      key={tag}
                       className="rounded-full border border-hair px-2.5 py-0.5 font-mono text-[11px] tracking-wide text-mute"
                     >
-                      {t}
+                      {tag}
                     </li>
                   ))}
                 </ul>
@@ -172,17 +158,17 @@ export default function Home() {
 
       {/* ---------------- Yetenekler ---------------- */}
       <section className="border-t border-hair py-24">
-        <SectionHead title="Yetenekler" />
-        <MetaList items={capabilities} />
+        <SectionHead title={t.home.skillsHeading} />
+        <MetaList items={t.home.capabilities} />
       </section>
 
       {/* ---------------- Listeler ---------------- */}
       <div className="grid gap-12 border-t border-hair pt-16 sm:grid-cols-2 sm:gap-10">
-        <LinkList title="Eğleniyorum" rows={funList} />
-        <LinkList title="Günlük" rows={feed} />
+        <LinkList title={t.home.funHeading} rows={funList} />
+        <LinkList title={t.home.feedHeading} rows={feed} />
       </div>
 
-      <ContactCta heading="Bir şey üretmek için konuşalım." email={site.email} />
+      <ContactCta heading={t.home.contactHeading} email={site.email} />
       </div>
     </>
   )

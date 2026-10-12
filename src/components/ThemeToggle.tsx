@@ -1,4 +1,5 @@
 import { useTheme } from '@/theme'
+import { useT } from '@/i18n'
 import { iconButtonClass } from './interaction'
 
 function Sun({ className = '' }: { className?: string }) {
@@ -34,14 +35,17 @@ function Moon({ className = '' }: { className?: string }) {
  */
 export function ThemeToggle({ className = '' }: { className?: string }) {
   const [theme, setTheme] = useTheme()
+  const t = useT()
   const dark = theme === 'dark'
+  const label = dark ? t.theme.toLight : t.theme.toDark
+  const title = dark ? t.theme.darkTitle : t.theme.lightTitle
 
   return (
     <button
       type="button"
       onClick={() => setTheme(dark ? 'light' : 'dark')}
-      aria-label={dark ? 'Aydınlık temaya geç' : 'Karanlık temaya geç'}
-      title={dark ? 'Aydınlık tema' : 'Karanlık tema'}
+      aria-label={label}
+      title={title}
       className={iconButtonClass(`relative ${className}`)}
     >
       <Sun

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -7,27 +7,29 @@
     <meta name="theme-color" content="#e8e7e3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d0d10" media="(prefers-color-scheme: dark)" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#e8e7e3" />
-    <title>Rewosama — Tasarımcı & Geliştirici</title>
+    <title>Rewosama — Designer &amp; Developer</title>
     <meta
       name="description"
-      content="Tasarım ve kodu bir arada yürüten bir ürün tasarımcısı. Seçili işler, denemeler ve notlar."
+      content="A product designer working across design and code. Selected work, experiments and notes."
     />
-    <meta property="og:title" content="Rewosama — Tasarımcı & Geliştirici" />
+    <meta property="og:title" content="Rewosama — Designer &amp; Developer" />
     <meta
       property="og:description"
-      content="Tasarım ve kodu bir arada yürüten bir ürün tasarımcısı. Seçili işler, denemeler ve notlar."
+      content="A product designer working across design and code. Selected work, experiments and notes."
     />
     <meta property="og:type" content="website" />
     <script>
-      // Sayfa boyanmadan önce temayı uygula (flash olmasın)
+      // Sayfa boyanmadan önce tema ve dil uygulanır (flash olmasın)
       ;(() => {
         try {
-          const saved = localStorage.getItem('rewosama-theme')
-          const dark = saved
-            ? saved === 'dark'
-            : matchMedia('(prefers-color-scheme: dark)').matches
-          document.documentElement.classList.toggle('dark', dark)
+          const theme = localStorage.getItem('rewosama-theme')
+          document.documentElement.classList.toggle(
+            'dark',
+            theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches,
+          )
+
+          const locale = localStorage.getItem('rewosama-locale')
+          document.documentElement.lang = locale === 'tr' ? 'tr' : 'en'
         } catch (e) {}
       })()
     </script>

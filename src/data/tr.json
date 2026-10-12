@@ -8,22 +8,10 @@
     "location": "İstanbul, Türkiye",
     "email": "hey@rewosama.com",
     "socials": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com"
-      },
-      {
-        "label": "X",
-        "href": "https://x.com"
-      },
-      {
-        "label": "LinkedIn",
-        "href": "https://linkedin.com"
-      },
-      {
-        "label": "Read.cv",
-        "href": "https://read.cv"
-      }
+      { "label": "GitHub", "href": "https://github.com" },
+      { "label": "X", "href": "https://x.com" },
+      { "label": "LinkedIn", "href": "https://linkedin.com" },
+      { "label": "Read.cv", "href": "https://read.cv" }
     ]
   },
   "about": [
@@ -61,11 +49,7 @@
       "image": "/images/arc.svg",
       "art": "scan",
       "summary": "Sekmeler, alanlar ve komut paleti üzerine yeniden düşünüldü. 40+ kişilik ekiple, sıfırdan ürüne götürdük.",
-      "tags": [
-        "Tasarım sistemi",
-        "Prototip",
-        "Web platformu"
-      ],
+      "tags": ["Tasarım sistemi", "Prototip", "Web platformu"],
       "link": "https://arc.net"
     },
     {
@@ -80,11 +64,7 @@
       "image": "/images/lumen.svg",
       "art": "beam",
       "summary": "Serbest piyasalar için gerçek zamanlı portföy analizi. Veri yoğun arayüzleri sakinleştirmek üzerine bir çalışma.",
-      "tags": [
-        "Veri görselleştirme",
-        "Finans",
-        "iOS"
-      ],
+      "tags": ["Veri görselleştirme", "Finans", "iOS"],
       "link": "https://example.com"
     },
     {
@@ -99,11 +79,7 @@
       "image": "/images/atlas.svg",
       "art": "dots",
       "summary": "Gömülü sistemler için dokunmatik arayüz kütüphanesi. 120 bileşen, tek bir tasarım dili, sıfır bağımlılık.",
-      "tags": [
-        "Tasarım mühendisliği",
-        "Bileşen kütüphanesi",
-        "Dokunmatik"
-      ],
+      "tags": ["Tasarım mühendisliği", "Bileşen kütüphanesi", "Dokunmatik"],
       "link": "https://example.com"
     },
     {
@@ -118,11 +94,7 @@
       "image": "/images/paper.svg",
       "art": "scan",
       "summary": "Kendi Notion klonum. Bugün hâlâ ayda 10.000 kişi tarafından kullanılıyor ve tamamen açık kaynak.",
-      "tags": [
-        "Bağımsız geliştirici",
-        "Açık kaynak",
-        "Veritabanı"
-      ],
+      "tags": ["Bağımsız geliştirici", "Açık kaynak", "Veritabanı"],
       "link": "https://github.com"
     },
     {
@@ -137,11 +109,7 @@
       "image": "/images/riso.svg",
       "art": "dots",
       "summary": "Tarayıcıda çalışan bir piksel sanat editörü. En çok kullanılan, en az kazandıran proje.",
-      "tags": [
-        "Canvas",
-        "WebGL",
-        "Yan proje"
-      ],
+      "tags": ["Canvas", "WebGL", "Yan proje"],
       "link": "https://example.com"
     }
   ],
@@ -188,5 +156,61 @@
       "meta": "2025",
       "href": "https://example.com"
     }
-  ]
+  ],
+  "ui": {
+    "switchTo": "İngilizceye geç",
+    "nav": {
+      "home": "Ana Sayfa",
+      "projects": "Projeler",
+      "contact": "İletişim"
+    },
+    "home": {
+      "headline": "**Rewosama**, İstanbul’da tasarımı ve kodu aynı **kasette** topluyorum.",
+      "ctaPrimary": "Seçili işler",
+      "ctaSecondary": "İletişim",
+      "availability": "Yeni projelere açık",
+      "sceneCaption": "Home Arcade · Model 1977",
+      "aboutHeading": "Hakkımda",
+      "selectedHeading": "Seçili işler",
+      "all": "Tümü ({count})",
+      "skillsHeading": "Yetenekler",
+      "funHeading": "Eğleniyorum",
+      "feedHeading": "Günlük",
+      "contactHeading": "Bir şey üretmek için konuşalım.",
+      "capabilities": [
+        ["Ürün tasarımı", "Araştırmadan piksele kadar uçtan uca akış."],
+        ["Tasarım sistemleri", "Bileşen kütüphaneleri, token mimarisi, dokümantasyon."],
+        ["Etkileşimli arayüzler", "Three.js, WebGL, hareket tasarımı ve prototipleme."],
+        ["Ön yüz mühendisliği", "React, TypeScript, performans ve erişilebilirlik."]
+      ],
+      "quickFacts": [
+        ["Konum", "İstanbul, Türkiye"],
+        ["Odak", "Tasarım + kod"],
+        ["Deneyim", "8+ yıl"],
+        ["Durum", "Yeni projelere açık"]
+      ]
+    },
+    "projects": {
+      "kicker": "Projeler",
+      "headline": "Kaset rafındaki her şey.",
+      "lead": "Her kart gerçek bir 3B kaset. İmleci üzerine götür — dönsün.",
+      "moreHeading": "Başka bir şey mi?",
+      "cassetteUnit": "kaset",
+      "contactHeading": "Birlikte bir şey yapalım mı?"
+    },
+    "footer": {
+      "pages": "Sayfalar",
+      "else": "Else",
+      "builtWith": "React · Tailwind · Three.js ile yapıldı"
+    },
+    "theme": {
+      "toDark": "Karanlık temaya geç",
+      "toLight": "Aydınlık temaya geç",
+      "darkTitle": "Karanlık tema",
+      "lightTitle": "Aydınlık tema"
+    },
+    "link": {
+      "visit": "Ziyaret et"
+    }
+  }
 }

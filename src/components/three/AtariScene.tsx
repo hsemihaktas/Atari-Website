@@ -5,7 +5,7 @@ import { Environment, Lightformer } from '@react-three/drei'
 import { AtariConsole } from './AtariConsole'
 import { Cassette } from './Cassette'
 import { useTheme } from '@/theme'
-import { projects } from '@/data/site'
+import { useContent } from '@/i18n'
 
 /* Konsolun ekranda kapladığı kutu — kamera buna göre uzaklaşır */
 const FIT_W = 11.2
@@ -54,6 +54,7 @@ function CameraFit() {
 /** Ana sayfa sahnesi: 3B oyun konsolu ve takılı kaset. */
 function Scene() {
   const [theme] = useTheme()
+  const { projects } = useContent()
   const dark = theme === 'dark'
   const cart = useRef<THREE.Group>(null)
 

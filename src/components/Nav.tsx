@@ -4,32 +4,60 @@ import { CassetteGlyph } from './icons'
 import { ThemeToggle } from './ThemeToggle'
 import { NavUnderline } from './ui'
 import { navItemClass } from './interaction'
-import { site } from '@/data/site'
+import { useContent, useLocale, useT } from '@/i18n'
 
-/** Tek bir navbar bağlantısı — iç bağlantı ve harici bağlantı aynı görünür. */
+/**
+ * Tek bir navbar öğesi. İç bağlantı, harici bağlantı ve düğme aynı
+ * görünümü paylaşır; sadece davranış değişir.
+ */
 function NavItem({
   to,
-  active,
+  href,
+  active = false,
+  onClick,
+  title,
   children,
-  ...rest
-}: { to?: string; active: boolean; children: ReactNode } & React.AnchorHTMLAttributes<
-  HTMLAnchorElement
->) {
+}: {
+  to?: string
+  href?: string
+  active?: boolean
+  onClick?: () => void
+  title?: string
+  children: ReactNode
+}) {
   const className = navItemClass(active)
+  const underline = <NavUnderline active={active} />
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} title={title} className={className}>
+        {children}
+        {underline}
+      </button>
+    )
+  }
+
+  if (to) {
+    return (
+      <NavLink to={to} title={title} className={className}>
+        {children}
+        {underline}
+      </NavLink>
+    )
+  }
 
   return (
-    <span className={`${className} text-[15px]`}>
-      {to ? (
-        <NavLink to={to}>{children}</NavLink>
-      ) : (
-        <a {...rest}>{children}</a>
-      )}
-      <NavUnderline active={active} />
-    </span>
+    <a href={href} title={title} className={className}>
+      {children}
+      {underline}
+    </a>
   )
 }
 
 export function Nav() {
+  const t = useT()
+  const { site } = useContent()
+  const { other, setLocale } = useLocale()
   const { pathname } = useLocation()
   const isActive = (to: string) => (to === '/' ? pathname === '/' : pathname.startsWith(to))
 
@@ -47,18 +75,21 @@ export function Nav() {
           <span className="text-[15px] font-medium tracking-tight">{site.fullName}</span>
         </Link>
 
-        <nav className="flex items-center gap-5 sm:gap-7">
+        <nav className="flex items-center gap-5 text-[15px] sm:gap-7">
           <NavItem to="/" active={isActive('/')}>
-            Ana Sayfa
+            {t.nav.home}
           </NavItem>
           <NavItem to="/projeler" active={isActive('/projeler')}>
-            Projeler
+            {t.nav.projects}
           </NavItem>
-          <NavItem href={`mailto:${site.email}`} active={false}>
-            İletişim
-          </NavItem>
+          <NavItem href={`mailto:${site.email}`}>{t.nav.contact}</NavItem>
 
           <span className="h-4 w-px bg-hair" aria-hidden="true" />
+
+          {/* dil düğmesi — hedef dilin kodunu gösterir, aktif nav gibi görünür */}
+          <NavItem onClick={() => setLocale(other)} title={t.switchTo}>
+            <span aria-hidden="true">{other.toUpperCase()}</span>
+          </NavItem>
 
           <ThemeToggle />
         </nav>

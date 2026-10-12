@@ -13,11 +13,59 @@ npm run preview  # derlemeyi yerelde aç
 
 ## İçerik
 
-Tüm metin, kaset ve bağlantı verileri tek dosyada:
+Tüm metin, kaset ve bağlantı verileri iki dosyada, aynı şemayla:
 
 ```
-src/data/content.json
+src/data/en.json   İngilizce (varsayılan)
+src/data/tr.json   Türkçe
 ```
+
+Varsayılan dil **İngilizce**. İlk girişte işletim sistemi dili yok sayılır,
+yani site daima İngilizce açılır. Seçim `localStorage`'da `rewosama-locale`
+anahtarıyla tutulur ve navbar'daki `EN` / `TR` düğmesiyle değiştirilir.
+
+### Neler çevrildi
+
+Her iki JSON'da beş bölüm var:
+
+| bölüm      | içerik                                                   |
+| ---------- | -------------------------------------------------------- |
+| `site`     | ad, unvan, şehir, e-posta, sosyal linkler                |
+| `about`    | hakkımda blokları (başlık + paragraflar)                 |
+| `cassettes`| projeler — etiket yazıları, renkler, özetler, etiketler   |
+| `funList`  | "eğleniyorum" listesi                                     |
+| `feed`     | günlük listesi                                            |
+| `ui`       | arayüz metinleri (butonlar, başlıklar, nav, footer, tema) |
+
+Arayüz metinleri `ui` altında; böylece buton yazısı ya da bölüm başlığı
+değiştirmek için JSON'u düzenlemek yeterli, koda dokunmana gerek yok.
+
+### Yer tutucular ve işaretleme
+
+- `{count}` yerine tutucu: `t.home.all` → `"All ({count})"`
+- `**kalın**`: başlıklardaki vurgulu parçalar. `RichText` bileşeni işler,
+  böylece iki dilde de cümle yapısı bozulmadan doğal görünür:
+
+  ```jsonc
+  "headline": "**Rewosama** — from **Istanbul**, I keep design and code together in one **cartridge**."
+  ```
+
+### Kodda kullanım
+
+```tsx
+import { useContent, useT, useLocale } from '@/i18n'
+
+const t = useT()                    // arayüz metinleri
+const { site, projects } = useContent()   // dil değişince yeniden türer
+const { other, setLocale } = useLocale()  // dil değiştirme
+```
+
+- `src/i18n/index.ts` — sözlükler, tipler, hook'lar
+- `src/i18n/provider.tsx` — `I18nProvider` (uygulamayı `main.tsx`'te sarar)
+- `src/data/site.ts` — içerik tipleri (artık veri dışa aktarmıyor)
+
+`<html lang>` hem ilk boyamada (`index.html` içindeki betik) hem de dil
+değişiminde güncelleniyor; sekme başlığı da dile uyuyor.
 
 `cassettes` dizisi kasetleri besler:
 
@@ -106,16 +154,20 @@ public/
 src/
   index.css                 palet değişkenleri, .dark varyantı, temel katman
   theme.ts                  useTheme() + shade() yardımcıları
+  i18n/
+    index.ts                sözlükler, locale durumu, useT / useContent / useLocale
+    provider.tsx            I18nProvider — uygulamayı sarar
   data/
-    content.json            tüm içerik
-    site.ts                 tipler + türetilmiş listeler (featured, projects)
+    en.json                 İngilizce içerik (varsayılan)
+    tr.json                 Türkçe içerik
+    site.ts                 içerik tipleri
   components/
     Nav.tsx                 navbar
     Footer.tsx              alt bilgi
     ThemeToggle.tsx         güneş/ay düğmesi
     icons.tsx               CassetteGlyph, ArrowUpRight
     interaction.ts          ortak süre / easing / ok hareketi / sınıflar
-    ui.tsx                  Action, TextLink, NavUnderline
+    ui.tsx                  Action, TextLink, NavUnderline, RichText
     sections.tsx            sayfalar arası ortak bloklar
     three/
       AtariConsole.tsx      prosedürel oyun konsolu modeli
@@ -132,8 +184,8 @@ src/
 ## Notlar
 
 - Kaset ve konsol modelleri hazır 3B dosya değil, kodla üretiliyor.
-- Etiket görselleri de `content.json`'daki renklerden ve `image` alanından
-  canvas'a çiziliyor.
+- Etiket görselleri de `en.json` / `tr.json` içindeki renklerden ve `image`
+  alanından canvas'a çiziliyor.
 - Ana sayfadaki konsolu **basılı tutup sürükleyerek** döndürebilirsin; bırakınca
   kısa bir ataletle devam ediyor. Zeminde gölge yok, havada duruyor.
 - Kamera, konsolu ekran oranına göre otomatik kadraja alıyor — pencereyi

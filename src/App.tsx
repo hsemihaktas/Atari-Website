@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer'
 import Home from '@/pages/Home'
 import About from '@/pages/About'
 import Projects from '@/pages/Projects'
-import { site } from '@/data/site'
+import { useContent } from '@/i18n'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -16,6 +16,8 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { site } = useContent()
+
   return (
     <div className="min-h-dvh">
       <ScrollToTop />
@@ -23,6 +25,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hakkimda" element={<About />} />
+        <Route path="/about" element={<About />} />
         <Route path="/projeler" element={<Projects />} />
         <Route path="*" element={<Home />} />
       </Routes>

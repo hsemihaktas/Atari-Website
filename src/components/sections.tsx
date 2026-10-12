@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { TextLink } from './ui'
+import { useT } from '@/i18n'
 import type { LinkRow, Project } from '@/data/site'
 
 /** Bölüm başlığı + sağda sayaç/bağlantı. */
@@ -27,7 +28,7 @@ export function MetaRow({ title, desc }: { title: string; desc: string }) {
 }
 
 /** Künye listesi — ince çizgilerle ayrılmış satırlar. */
-export function MetaList({ items }: { items: [string, string][] }) {
+export function MetaList({ items }: { items: string[][] }) {
   return (
     <ul className="mt-10 border-t border-hair">
       {items.map(([title, desc]) => (
@@ -59,6 +60,8 @@ export function ProjectRow({
   index: number
   active?: boolean
 }) {
+  const t = useT()
+
   return (
     <article
       className="border-b border-hair py-14 transition-opacity duration-500"
@@ -98,7 +101,7 @@ export function ProjectRow({
           rel="noreferrer"
           className="mt-8 text-[16px]"
         >
-          Ziyaret et
+          {t.link.visit}
         </TextLink>
       )}
     </article>

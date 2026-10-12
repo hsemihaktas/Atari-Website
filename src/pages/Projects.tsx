@@ -1,22 +1,26 @@
 import { CassetteTile } from '@/components/three/CassetteTile'
 import { ArrowUpRight } from '@/components/icons'
 import { ARROW } from '@/components/interaction'
+import { RichText } from '@/components/ui'
 import { ContactCta, SectionHead } from '@/components/sections'
-import { projects, site } from '@/data/site'
+import { useContent, useT } from '@/i18n'
 
 export default function Projects() {
+  const t = useT()
+  const { projects, site } = useContent()
+
   return (
     <div className="mx-auto max-w-[1600px] px-6 md:px-10">
       <div className="lg:grid lg:grid-cols-[1fr_1.6fr] lg:gap-16">
         {/* ---------- Sol: başlık ---------- */}
         <div className="lg:sticky lg:top-0 lg:h-screen lg:py-40">
           <section className="pb-16 pt-32 lg:pt-40">
-            <p className="label text-mute">Projeler</p>
+            <p className="label text-mute">{t.projects.kicker}</p>
             <h1 className="mt-6 max-w-[14ch] text-[clamp(1.9rem,4.1vw,3.1rem)] leading-[1.16] tracking-[-0.03em]">
-              Kaset rafındaki her şey.
+              <RichText text={t.projects.headline} />
             </h1>
             <p className="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-ink-soft">
-              Her kart gerçek bir 3B kaset. İmleci üzerine götür — dönsün.
+              {t.projects.lead}
             </p>
           </section>
         </div>
@@ -45,8 +49,11 @@ export default function Projects() {
           </div>
 
           <div className="mt-20 border-t border-hair pt-10">
-            <SectionHead title="Başka bir şey mi?" meta={`${String(projects.length).padStart(2, '0')} kaset`} />
-            <ContactCta heading="Birlikte bir şey yapalım mı?" email={site.email} />
+            <SectionHead
+              title={t.projects.moreHeading}
+              meta={`${String(projects.length).padStart(2, '0')} ${t.projects.cassetteUnit}`}
+            />
+            <ContactCta heading={t.projects.contactHeading} email={site.email} />
           </div>
         </div>
       </div>

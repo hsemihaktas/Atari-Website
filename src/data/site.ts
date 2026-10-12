@@ -1,9 +1,10 @@
-import content from './content.json'
-
 /**
- * Tüm site içeriği `content.json` dosyasından gelir.
- * Kasetlerin yazıları, renkleri ve etiketleri oradan düzenlenir.
+ * İçerik şekli. `en.json` ve `tr.json` bu tiplere uyar; sağlayıcı
+ * (`src/i18n.tsx`) dili değiştirdiğinde türetilmiş listeleri yeniden kurar.
  */
+
+export const LOCALES = ['en', 'tr'] as const
+export type Locale = (typeof LOCALES)[number]
 
 export type Project = {
   id: string
@@ -37,10 +38,78 @@ export type LinkRow = {
   href?: string
 }
 
-export const site = content.site
-export const about = content.about as { heading: string; body: string[] }[]
-export const projects = content.cassettes as Project[]
-/** Ana sayfada gösterilen öne çıkan kasetler */
-export const featured = projects.filter((p) => p.featured)
-export const funList = content.funList as LinkRow[]
-export const feed = content.feed as LinkRow[]
+export type AboutSection = {
+  heading: string
+  body: string[]
+}
+
+export type SiteInfo = {
+  name: string
+  fullName: string
+  handle: string
+  title: string
+  city: string
+  location: string
+  email: string
+  socials: { label: string; href: string }[]
+}
+
+export type UiStrings = {
+  /** hedef dile geçişin açıklaması — ekran okuyucu ve tooltip için */
+  switchTo: string
+  nav: { home: string; projects: string; contact: string }
+  home: {
+    /** `**...**` ile kalın parçalar işaretlenir */
+    headline: string
+    ctaPrimary: string
+    ctaSecondary: string
+    availability: string
+    sceneCaption: string
+    aboutHeading: string
+    selectedHeading: string
+    /** `{count}` yerine tutucu */
+    all: string
+    skillsHeading: string
+    funHeading: string
+    feedHeading: string
+    contactHeading: string
+    capabilities: string[][]
+    quickFacts: string[][]
+  }
+  projects: {
+    kicker: string
+    headline: string
+    lead: string
+    moreHeading: string
+    cassetteUnit: string
+    contactHeading: string
+  }
+  footer: { pages: string; else: string; builtWith: string }
+  theme: {
+    toDark: string
+    toLight: string
+    darkTitle: string
+    lightTitle: string
+  }
+  link: { visit: string }
+}
+
+export type Content = {
+  site: SiteInfo
+  about: AboutSection[]
+  cassettes: Project[]
+  funList: LinkRow[]
+  feed: LinkRow[]
+  ui: UiStrings
+}
+
+/** Bir sözlükten türetilmiş, hazır içerik. */
+export type ResolvedContent = {
+  site: SiteInfo
+  about: AboutSection[]
+  projects: Project[]
+  /** Ana sayfada gösterilen öne çıkan kasetler */
+  featured: Project[]
+  funList: LinkRow[]
+  feed: LinkRow[]
+}
