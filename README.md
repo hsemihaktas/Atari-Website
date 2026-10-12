@@ -109,6 +109,30 @@ etiket dokusu ve kart otomatik üretilir.
 `public/images/` içindeki `*.svg` dosyaları yer tutucudur. Kendi
 `.jpg` / `.png` / `.webp` dosyalarını koyup JSON'daki yolu güncellemen yeterli.
 
+## OG görseli
+
+Paylaşım görseli (`og.png`) **build sırasında üretilir**:
+
+```bash
+npm run og      # tek başına üret
+npm run build   # vite build sonrası otomatik çalışır
+```
+
+`src/data/en.json` içindeki isim ya da metni değiştirirsen, görsel bir sonraki
+build'de kendiliğinden güncellenir — elle yenilemene gerek yok.
+
+Üretim yerine `public/og.png` yazılır: dev sunucusu oradan servis ediyor
+(`localhost:5180/og.png` gerçekten görseli gösterir), `vite build` de
+`public/` içeriğini `dist/`'e kopyalıyor. Tarayıcı veya edge runtime gerekmez, sadece Node çalıştırır;
+Vercel, Netlify ve kendi sunucun için aynı komut geçerli.
+
+- `scripts/generate-og.tsx` — düzeni çizer (satori), PNG'ye çevirir (resvg)
+- `assets/og-cassette.png` — görseldeki kaset. Düz bir dosya; istediğin
+  zaman kendi PNG'nle değiştirebilirsin. Zemini `#e8e7e3` olmalı, yoksa
+  kâğıtla birleşmez.
+- `assets/fonts/*.ttf` — satori değişken fontları okuyamıyor, bu yüzden
+  değişken fontlardan alınmış statik örnekler kullanılıyor.
+
 ## Etkileşim dili
 
 Sitedeki her tıklanabilir öğe tek bir sistemden geliyor, kopyala-yapıştır
@@ -148,8 +172,14 @@ işletim sistemindeki tercih kullanılıyor.
 
 ```
 index.html                  tema betiği (ilk boyama öncesi .dark uygular)
+assets/
+  og-cassette.png           OG görselindeki kaset
+  fonts/                    satori için statik font örnekleri
+scripts/
+  generate-og.tsx           OG görselini üretir (npm run og)
 public/
   favicon.svg               kaset silüetli site ikonu
+  og.png                    paylaşım görseli — build'de yeniden üretilir
   images/                   kaset etiketi görselleri (yer tutucu *.svg)
 src/
   index.css                 palet değişkenleri, .dark varyantı, temel katman
