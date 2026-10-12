@@ -66,7 +66,29 @@
         "Prototip",
         "Web platformu"
       ],
-      "link": "https://arc.net"
+      "link": "https://arc.net",
+      "detail": {
+        "lede": "Tarayıcıda yüzlerce sekmeyi yönetilebilir bir yüzeye indirdik. Sıfırdan bir ürün: tasarım sistemi, komut paleti ve ilk sürüm.",
+        "description": [
+          "Arc Browser'ı sıfırdan kurduk. Mevcut tarayıcıların aksine sekmeyi bir liste olmaktan çıkarıp yaşayan bir çalışma alanına dönüştürmek ana fikirdi.",
+          "İlk yılın büyük bölümü tasarım sistemine gitti. Bileşenlerin çoğu ortak bir token katmanından besleniyor; iki farklı ekip aynı işi yaptığında çıktılar birbirine yaklaşıyor. Komut paleti bu yüzden her sürümde yeniden yazılmadı, sadece yeni eylemler eklendi."
+        ],
+        "features": [
+          "Alan (space) tabanlı gezinme — her eylem bir alana ait",
+          "Tek kısayolla açılan komut paleti, arama ile filtreleme",
+          "Sekmeler arası geçişte bağlam korunuyor, yazarken geri dönülüyor",
+          "Yerleşik ekran okuyucu desteği, tüm eylemler klavyeye bağlı",
+          "180 bileşenlik tasarım sistemi, tek token kaynağı"
+        ],
+        "stack": [
+          "TypeScript",
+          "React",
+          "Rust",
+          "WebGL"
+        ],
+        "repo": "https://github.com/company/arc",
+        "demo": "https://arc.net"
+      }
     },
     {
       "id": "lumen",
@@ -85,7 +107,28 @@
         "Finans",
         "iOS"
       ],
-      "link": "https://example.com"
+      "link": "https://example.com",
+      "detail": {
+        "lede": "Serbest piyasalar için gerçek zamanlı portföy analizi. Veri yoğun arayüzleri sakinleştirmek üzerine iki yıl.",
+        "description": [
+          "Lumen, borsa verisini günlük bir panoya çeviren bir uygulama. Zor tarafı veri taşımak değil, onu okunur kılmaktı: kullanıcı önce ne olduğunu görmeli, sonra ne yapacağına karar vermeli.",
+          "Bu yüzden her ekranı tek bir soru üzerine kurduk. Portföyün durumu ne, risk nerede, fırsat nerede? Grafik süsleme olarak kaldırıldı; renk yalnızca anlam taşıyor."
+        ],
+        "features": [
+          "Canlı portföy takibi, 1 dakikalık gecikmeyle",
+          "Varlık bazlı kâr/zarar dökümü ve geçmiş karşılaştırma",
+          "Risk göstergesi — volatilitek ve yoğunlaşma tek ekranda",
+          "Uyarılar: fiyat hareketi, hedef, üst üste toplam kayıp",
+          "Web ve iOS, aynı veri katmanı üzerinden"
+        ],
+        "stack": [
+          "React",
+          "D3",
+          "TypeScript",
+          "Swift"
+        ],
+        "repo": "https://github.com/company/lumen"
+      }
     },
     {
       "id": "atlas",
@@ -104,7 +147,29 @@
         "Bileşen kütüphanesi",
         "Dokunmatik"
       ],
-      "link": "https://example.com"
+      "link": "https://example.com",
+      "detail": {
+        "lede": "Gömülü sistemler için dokunmatik arayüz kütüphanesi. 120 bileşen, tek tasarım dili, sıfır bağımlılık.",
+        "description": [
+          "Atlas OS, cihaz üreticilerine dokunmatik arayüz kurmak için bir kütüphane. Sorun tasarım değil, tutarlılıktı: her ekip kendi bileşenlerini yazıyor ve aynı iş iki farklı biçimde çıkıyordu.",
+          "Çözüm katmanları ayırmak oldu. Token'lar çip ekibiyle ortak yazıldı, bileşenler yalnızca onları tüketti. Böylece yeni bir cihaz başlatmak yeni bileşen yazmak değil, mevcut olanları doğru boyutlandırmak oldu."
+        ],
+        "features": [
+          "120 bileşen, tek tasarım dili, sıfır runtime bağımlılığı",
+          "Token katmanı Figma'dan otomatik üretiliyor, elle güncellenmiyor",
+          "Dokunma hedefleri ve kontrast değerleri WCAG'a göre sınırlandırılmış",
+          "Serbest boyutlandırma — sabit piksel değil, dp/birim bazlı",
+          "Jest ile yazılan bileşen testleri, CI'da çalışıyor"
+        ],
+        "stack": [
+          "TypeScript",
+          "React",
+          "Style Dictionary",
+          "Jest"
+        ],
+        "repo": "https://github.com/atlas-os/ui",
+        "demo": "https://atlas-ui.dev"
+      }
     },
     {
       "id": "paper",
@@ -123,7 +188,29 @@
         "Açık kaynak",
         "Veritabanı"
       ],
-      "link": "https://github.com"
+      "link": "https://github.com",
+      "detail": {
+        "lede": "Kendi Notion klonum. Hâlâ ayda 10.000 kişi kullanıyor ve tamamen açık kaynak.",
+        "description": [
+          "Paper, Notion'un ihtiyaçları karşılamadığı küçük ekipler için yazılmış bir blok tabanlı düzenleyici. Sunucu tarafında neredeyse hiçbir şey yok: veri kullanıcının kendi cihazında duruyor, çalışması için internet bile gerekmiyor.",
+          "İki yıl sonunda bile veri modelini değiştirmedim. Yeni özelliklerin hepsi blok üzerinden çözüldü; bu da geriye dönük uyumluluk derdi hiç doğmadı."
+        ],
+        "features": [
+          "Blok tabanlı düzenleyici — metin, liste, kod, tablo, gömü içerik",
+          "Yerel öncelikli depolama, çevrimdışı tam çalışma",
+          "Manuel senkronizasyon — cihazlar arası, çakışma çözümlemeli",
+          "Kendi kimlik doğrulaması, üçüncü parti SDK yok",
+          "Tamamen açık kaynak, topluluk katkılı"
+        ],
+        "stack": [
+          "TypeScript",
+          "React",
+          "tRPC",
+          "SQLite"
+        ],
+        "repo": "https://github.com/company/paper",
+        "demo": "https://paper.example.com"
+      }
     },
     {
       "id": "riso",
@@ -142,7 +229,29 @@
         "WebGL",
         "Yan proje"
       ],
-      "link": "https://example.com"
+      "link": "https://example.com",
+      "detail": {
+        "lede": "Tarayıcıda çalışan bir piksel sanat editörü. En çok kullanılan, en az kazandıran proje.",
+        "description": [
+          "Riso, 32×32 bir resim için Photoshop açmayı gereksiz kılmak için yazıldı. Kurallar baştan sabit: sabit palet, kare fırça, ızgaraya kilitli piksel. Belirsizlik yok, sürpriz yok.",
+          "En çok düşündüğüm kısım performanstı. Çizim tamamen bir Web Worker'da; 512×512 bir tuvale çizerken arayüz hâlâ akıcı kalıyor. Kaydetme de otomatik, IndexedDB'ye her otuz saniyede."
+        ],
+        "features": [
+          "Sabit 32 renklik palet, panoda kayan",
+          "Kalem, çizgi, doldurma, dikdörtgen, silgi",
+          "Izgara ve piksel hizalama, serbest modda kapatılabilir",
+          "90+ klavye kısayolu, fare tamamen opsiyonel",
+          "Otomatik kayıt, katman desteği, PNG dışa aktarma"
+        ],
+        "stack": [
+          "TypeScript",
+          "Canvas",
+          "Web Workers",
+          "IndexedDB"
+        ],
+        "repo": "https://github.com/company/riso",
+        "demo": "https://riso.example.com"
+      }
     }
   ],
   "funList": [
@@ -277,6 +386,16 @@
       "projects": "Projeleri gör",
       "label": "Bilinmeyen oyun",
       "sceneCaption": "Home Arcade · Yuva boş"
+    },
+    "project": {
+      "back": "Tüm projeler",
+      "overview": "Genel bakış",
+      "features": "Özellikler",
+      "stack": "Kullanılan",
+      "links": "Bağlantılar",
+      "repo": "Kaynak kodu",
+      "demo": "Canlı demo",
+      "credits": "Alanlar"
     }
   }
 }

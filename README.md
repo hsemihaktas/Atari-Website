@@ -83,9 +83,36 @@ değişiminde güncelleniyor; sekme başlığı da dile uyuyor.
 | `summary`  | ana sayfadaki açıklama                               |
 | `tags`     | etiketler                                             |
 | `link`     | dış bağlantı (opsiyonel)                             |
+| `detail`   | detay sayfasının uzun içeriği (aşağıya bak)            |
 
 Yeni kaset eklemek için `cassettes` dizisine bir nesne daha ekle — 3B model,
-etiket dokusu ve kart otomatik üretilir.
+etiket dokusu, kart ve `/projects/<id>` detay sayfası otomatik üretilir.
+
+### Detay sayfası
+
+`detail` alanı yazılım projesi gibi okunacak içeriktir. **Her alan opsiyoneldir;
+yoksa o bölüm hiç render edilmez.** `detail` olmayan bir proje bile sayfasını
+açar, yalnızca `summary` gösterilir.
+
+| alan         | açıklama                                    |
+| ------------ | ------------------------------------------- |
+| `lede`       | başlığın altındaki tek satır özet           |
+| `description`| ana anlatım, bir veya birkaç paragraf       |
+| `features`   | yapılan işlerin listesi                    |
+| `stack`      | kullanılan teknolojiler                     |
+| `repo`       | kaynak kodu bağlantısı                      |
+| `demo`       | canlı demo bağlantısı                       |
+
+```jsonc
+"detail": {
+  "lede": "Tarayıcıda yüzlerce sekmeyi yönetilebilir bir yüzeye indirdik.",
+  "description": ["İlk paragraf...", "İkinci paragraf..."],
+  "features": ["Alan tabanlı gezinme", "Komut paleti"],
+  "stack": ["TypeScript", "React"],
+  "repo": "https://github.com/x/y",
+  "demo": "https://example.com"
+}
+```
 
 ## Etiket görselleri
 
@@ -221,9 +248,10 @@ src/
   kısa bir ataletle devam ediyor. Zeminde gölge yok, havada duruyor.
 - Kamera, konsolu ekran oranına göre otomatik kadraja alıyor — pencereyi
   boyutlandırdığında model taşmıyor.
+- Rotalar `/`, `/projects`, `/projects/:id`. `About.tsx` eski `/hakkimda` ve
+  `/about` adreslerini ana sayfaya gönderiyor.
 - Vercel bilinmeyen adreslerde `404.html`'i arıyor, `index.html`'i değil.
   `vite.config.ts` içindeki `spaFallbackHtml` build sonrası `dist/404.html`'i
   üretiyor; aksi halde sunucunun kutu 404 sayfası görünür.
-- `AtariScene` üç ayarlı: `emptySlot` kaseti gizler (404 sayfası),
-  `scale` kamerayı uzaklaştırıp modeli küçültür, `liftMax` yukarı kaydırmayı
-  sınırlar. Değerler 1'den büyük oldukça model küçülür.
+- `AtariScene` iki ayarlı: `scale` hedef kadraj boyutunu çarpar (1'den büyükse
+  kamera uzaklaşır, model küçülür), `liftMax` yukarı kaydırmayı sınırlar.

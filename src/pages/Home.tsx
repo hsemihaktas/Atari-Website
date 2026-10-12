@@ -112,7 +112,7 @@ export default function Home() {
         <SectionHead
           title={t.home.selectedHeading}
           meta={
-            <Link to="/projeler" className={textLinkClass()}>
+            <Link to="/projects" className={textLinkClass()}>
               {t.home.all.replace('{count}', String(projects.length))}
               <ArrowUpRight className={ARROW} />
             </Link>
@@ -123,7 +123,7 @@ export default function Home() {
           {featured.map((p) => (
             <Link
               key={p.id}
-              to="/projeler"
+              to="/projects"
               className="group flex flex-col items-center text-center"
             >
               <CassetteTile project={p} />

@@ -1,13 +1,29 @@
-import { AtariScene } from '@/components/three/AtariScene'
+import { CassetteTile } from '@/components/three/CassetteTile'
 import { Action } from '@/components/ui'
 import { useContent, useT } from '@/i18n'
+import type { Project } from '@/data/site'
 
 /**
- * Var olmayan sayfa.
+ * Boş yuvada duran kaset.
  *
- * Fikir: konsolun kaset yuvası boş — kullanıcının aradığı sayfa takılı
- * değil. `AtariScene` bu yüzden `emptySlot` ile kaseti gizliyor.
+ * Etiketi ve kâğıt dokusu 404 için üretiliyor; oyun adı "404", rol "Not found".
+ * Kabuk rengi gri — rafta duran ama oynatılmayan bir kaset gibi.
  */
+const MISSING: Project = {
+  id: '__missing__',
+  featured: false,
+  name: '404',
+  role: 'Not found',
+  years: '—',
+  location: 'NO SLOT',
+  shell: '#26262c',
+  label: '#7d7d76',
+  art: 'dots',
+  summary: '',
+  tags: [],
+}
+
+/** Var olmayan sayfa — yerine başka bir kaset konulmuş boş bir kutu. */
 export default function NotFound() {
   const t = useT()
   const { site } = useContent()
@@ -30,22 +46,21 @@ export default function NotFound() {
 
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <Action href="/">{n.back}</Action>
-          <Action href="/projeler" variant="outline" arrow={false}>
+          <Action href="/projects" variant="outline" arrow={false}>
             {n.projects}
           </Action>
         </div>
 
-        {/* konsol boş yuvada: tek çizgili alt künye, sitenin geri kalanıyla aynı */}
+        {/* tek çizgili alt künye — sitenin geri kalanıyla aynı dil */}
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-hair pt-6 label text-mute">
-          <span>{n.sceneCaption}</span>
+          <span>{n.label}</span>
           <span className="h-3 w-px bg-hair-strong" aria-hidden="true" />
           <span>{site.location}</span>
         </div>
       </div>
 
       <div className="relative h-[62svh] w-full">
-        {/* dar kutu: model küçülüyor, yukarı kaydırma kapalı */}
-        <AtariScene className="absolute inset-0" emptySlot scale={1.22} liftMax={0} />
+        <CassetteTile project={MISSING} className="h-full" />
       </div>
     </section>
   )

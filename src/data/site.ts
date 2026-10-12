@@ -29,6 +29,25 @@ export type Project = {
   summary: string
   tags: string[]
   link?: string
+  /**
+   * Detay sayfasının uzun içeriği.
+   * `detail` yoksa sayfa yine açılır, sadece kısa özet gösterilir.
+   * Her alan opsiyoneldir: boş olan bölüm hiç render edilmez.
+   */
+  detail?: {
+    /** başlığın altındaki tek satır özet */
+    lede?: string
+    /** ana açıklama — bir veya birka�� paragraf */
+    description?: string[]
+    /** yapılan işlerin listesi */
+    features?: string[]
+    /** kullanılan teknolojiler */
+    stack?: string[]
+    /** kaynak kodu */
+    repo?: string
+    /** canlı demo */
+    demo?: string
+  }
 }
 
 export type LinkRow = {
@@ -83,6 +102,15 @@ export type UiStrings = {
     moreHeading: string
     cassetteUnit: string
     contactHeading: string
+  }
+  project: {
+    back: string
+    overview: string
+    features: string
+    stack: string
+    links: string
+    repo: string
+    demo: string
   }
   notFound: {
     code: string

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { CassetteTile } from '@/components/three/CassetteTile'
 import { ArrowUpRight } from '@/components/icons'
 import { ARROW } from '@/components/interaction'
@@ -30,7 +31,7 @@ export default function Projects() {
           <div className="grid gap-x-10 gap-y-20 pt-32 sm:grid-cols-2 lg:pt-40">
             {projects.map((p) => (
               <article key={p.id}>
-                <a href={p.link ?? '#'} target="_blank" rel="noreferrer" className="group block">
+                <Link to={`/projects/${p.id}`} className="group block">
                   <CassetteTile project={p} />
                   <div className="mt-6 flex items-baseline justify-between gap-4">
                     <div className="min-w-0">
@@ -43,7 +44,7 @@ export default function Projects() {
                     </div>
                     <ArrowUpRight className={`text-mute group-hover:text-ink ${ARROW}`} />
                   </div>
-                </a>
+                </Link>
               </article>
             ))}
           </div>

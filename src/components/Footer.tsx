@@ -32,7 +32,7 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/projeler" className={navItemClass(false)}>
+                  <Link to="/projects" className={navItemClass(false)}>
                     {t.nav.projects}
                     <NavUnderline active={false} />
                   </Link>
