@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import { AtariConsole } from './AtariConsole'
 import { Cassette } from './Cassette'
+import { useTheme } from '@/theme'
 import { projects } from '@/data/site'
 
 /* Konsolun ekranda kapladığı kutu — kamera buna göre uzaklaşır */
@@ -18,7 +19,11 @@ const DIR = new THREE.Vector3(0.48, 0.7, 1).normalize()
 const CART_Y = 1.62
 const CART_Z = 0.45 // yuvanın merkeziyle aynı hiza
 
-/** Kamerayı sahne oranına göre konsolu kadraja oturtur. */
+/**
+ * Kamerayı sahne oranına göre konsolu kadraja oturtur.
+ * Geniş-kısa canvas'ta üstte/altta boşluk kalır; o boşluğun bir kısmını
+ * kullanarak modeli yukarı kaydırır ki alttaki başlıkla çakışmasın.
+ */
 function CameraFit() {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera
   const size = useThree((s) => s.size)
@@ -32,8 +37,6 @@ function CameraFit() {
     const distW = FIT_W / 2 / half / aspect
     const d = Math.max(distH, distW) * 1.04
 
-    // Geniş-kısa canvas'ta üstte/altta boşluk kalır; bir kısmını kullanarak
-    // modeli yukarı kaydır ki alttaki başlıkla çakışmasın.
     const visibleH = 2 * d * half
     const slack = Math.max(0, visibleH - FIT_H) / 2
     const lift = Math.min(0.45, slack * 0.3)
@@ -50,6 +53,8 @@ function CameraFit() {
 
 /** Ana sayfa sahnesi: 3B oyun konsolu ve takılı kaset. */
 function Scene() {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
   const cart = useRef<THREE.Group>(null)
 
   useFrame((s) => {
@@ -62,27 +67,46 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.24} />
+      {/* karanlıkta koyu zeminde kalmasın diye ışıklar sertleşir */}
+      <ambientLight intensity={dark ? 0.3 : 0.24} />
       <directionalLight
         position={[6, 11, 8]}
-        intensity={1.7}
+        intensity={dark ? 1.8 : 1.7}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-bias={-0.0008}
       />
-      <directionalLight position={[-8, 4, 5]} intensity={0.45} color="#b9c4dd" />
-      <directionalLight position={[0, -5, -8]} intensity={0.4} color="#cfd2da" />
+      <directionalLight
+        position={[-8, 4, 5]}
+        intensity={dark ? 0.7 : 0.45}
+        color={dark ? '#9fb4e0' : '#b9c4dd'}
+      />
+      <directionalLight
+        position={[0, -5, -8]}
+        intensity={dark ? 0.6 : 0.4}
+        color={dark ? '#8f93a6' : '#cfd2da'}
+      />
 
       <Environment frames={1} resolution={256}>
-        <Lightformer form="rect" intensity={1.3} position={[0, 7, 5]} scale={[14, 6, 1]} />
         <Lightformer
           form="rect"
-          intensity={0.55}
+          intensity={dark ? 1.8 : 1.3}
+          position={[0, 7, 5]}
+          scale={[14, 6, 1]}
+        />
+        <Lightformer
+          form="rect"
+          intensity={dark ? 0.9 : 0.55}
           position={[-7, 3, 4]}
           scale={[8, 8, 1]}
-          color="#b9c4dd"
+          color={dark ? '#8fa6d6' : '#b9c4dd'}
         />
-        <Lightformer form="rect" intensity={0.45} position={[7, -2, -4]} scale={[10, 8, 1]} />
+        <Lightformer
+          form="rect"
+          intensity={dark ? 0.75 : 0.45}
+          position={[7, -2, -4]}
+          scale={[10, 8, 1]}
+        />
       </Environment>
 
       <AtariConsole>

@@ -3,21 +3,23 @@ import * as THREE from 'three'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import { Cassette } from './Cassette'
+import { useTheme } from '@/theme'
 import type { Project } from '@/data/site'
 
 /** Yumuşak, kenarları tamamen saydam gölge — düzlem kenarı görünmez. */
-function makeShadowTexture() {
+function makeShadowTexture(dark: boolean) {
   const S = 256
   const canvas = document.createElement('canvas')
   canvas.width = S
   canvas.height = S
   const ctx = canvas.getContext('2d')!
+  const rgb = dark ? '0,0,0' : '24,24,30'
   // yarıdan küçük yarıçap → dört köşe ve kenarlar zaten saydam
   const g = ctx.createRadialGradient(S / 2, S / 2, 2, S / 2, S / 2, S * 0.46)
-  g.addColorStop(0, 'rgba(24,24,30,0.40)')
-  g.addColorStop(0.45, 'rgba(24,24,30,0.17)')
-  g.addColorStop(0.78, 'rgba(24,24,30,0.04)')
-  g.addColorStop(1, 'rgba(24,24,30,0)')
+  g.addColorStop(0, `rgba(${rgb},0.52)`)
+  g.addColorStop(0.45, `rgba(${rgb},0.22)`)
+  g.addColorStop(0.78, `rgba(${rgb},0.05)`)
+  g.addColorStop(1, `rgba(${rgb},0)`)
   ctx.fillStyle = g
   ctx.fillRect(0, 0, S, S)
 
@@ -28,8 +30,10 @@ function makeShadowTexture() {
 }
 
 function Tile({ project }: { project: Project }) {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
   const g = useRef<THREE.Group>(null)
-  const shadow = useMemo(() => makeShadowTexture(), [])
+  const shadow = useMemo(() => makeShadowTexture(dark), [dark])
   const target = useMemo(() => new THREE.Vector2(), [])
 
   useEffect(() => () => shadow.dispose(), [shadow])
@@ -47,17 +51,21 @@ function Tile({ project }: { project: Project }) {
 
   return (
     <>
-      <ambientLight intensity={0.28} />
-      <directionalLight position={[4, 7, 6]} intensity={1.5} />
-      <directionalLight position={[-5, 2, 4]} intensity={0.4} color="#b9c4dd" />
+      <ambientLight intensity={dark ? 0.34 : 0.28} />
+      <directionalLight position={[4, 7, 6]} intensity={dark ? 1.65 : 1.5} />
+      <directionalLight
+        position={[-5, 2, 4]}
+        intensity={dark ? 0.7 : 0.4}
+        color={dark ? '#9fb4e0' : '#b9c4dd'}
+      />
       <Environment frames={1} resolution={128}>
-        <Lightformer form="rect" intensity={1.1} position={[0, 5, 4]} scale={[10, 4, 1]} />
+        <Lightformer form="rect" intensity={dark ? 1.6 : 1.1} position={[0, 5, 4]} scale={[10, 4, 1]} />
         <Lightformer
           form="rect"
-          intensity={0.4}
+          intensity={dark ? 0.7 : 0.4}
           position={[-5, 1, 3]}
           scale={[6, 6, 1]}
-          color="#b9c4dd"
+          color={dark ? '#9fb4e0' : '#b9c4dd'}
         />
       </Environment>
 

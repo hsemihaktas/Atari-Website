@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { CassetteGlyph } from './icons'
+import { NavUnderline } from './ui'
+import { navItemClass } from './interaction'
 import { site } from '@/data/site'
 
 const YEAR = new Date().getFullYear()
@@ -21,13 +23,15 @@ export function Footer() {
               <p className="label text-mute">Sayfalar</p>
               <ul className="mt-4 space-y-2 text-[15px]">
                 <li>
-                  <Link to="/" className="text-ink-soft transition-colors hover:text-ink">
+                  <Link to="/" className={navItemClass(false)}>
                     Ana Sayfa
+                    <NavUnderline active={false} />
                   </Link>
                 </li>
                 <li>
-                  <Link to="/projeler" className="text-ink-soft transition-colors hover:text-ink">
+                  <Link to="/projeler" className={navItemClass(false)}>
                     Projeler
+                    <NavUnderline active={false} />
                   </Link>
                 </li>
               </ul>
@@ -42,18 +46,17 @@ export function Footer() {
                       href={s.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-ink-soft transition-colors hover:text-ink"
+                      className={navItemClass(false)}
                     >
                       {s.label}
+                      <NavUnderline active={false} />
                     </a>
                   </li>
                 ))}
                 <li>
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="text-ink-soft transition-colors hover:text-ink"
-                  >
+                  <a href={`mailto:${site.email}`} className={navItemClass(false)}>
                     {site.email}
+                    <NavUnderline active={false} />
                   </a>
                 </li>
               </ul>

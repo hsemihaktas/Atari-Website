@@ -61,26 +61,72 @@ etiket dokusu ve kart otomatik üretilir.
 `public/images/` içindeki `*.svg` dosyaları yer tutucudur. Kendi
 `.jpg` / `.png` / `.webp` dosyalarını koyup JSON'daki yolu güncellemen yeterli.
 
+## Etkileşim dili
+
+Sitedeki her tıklanabilir öğe tek bir sistemden geliyor, kopyala-yapıştır
+stiller yok:
+
+| rol            | nerede                                  | davranış                                   |
+| -------------- | --------------------------------------- | ------------------------------------------ |
+| `Action`       | hero butonları                          | hap; `solid` ve `outline` birbirinin aynası |
+| `TextLink`     | "Ziyaret et", CTA e-postası, "Tümü (n)" | alt çizgi + ok birlikte hareket eder      |
+| `NavItem`      | navbar ve footer bağlantıları           | metin + soldan açılan ince çizgi         |
+| `iconButton`   | tema düğmesi                            | çerçevesiz ikon; hover'da yumuşak daire   |
+
+- `solid` hover'da `outline`'a, `outline` hover'da `solid`'a dönüşüyor.
+- Süre, easing ve ok hareketi tek yerden geliyor:
+  `src/components/interaction.ts` (`T`, `EASE`, `ARROW`, sınıf üreticileri).
+- Bileşenler `src/components/ui.tsx` içinde: `Action`, `TextLink`,
+  `NavUnderline`.
+
+## Tema
+
+Aydınlık ve karanlık tema destekleniyor. Nav'daki düğmeyle değiştiriliyor,
+tercih `localStorage`'da `rewosama-theme` anahtarıyla tutuluyor. İlk girişte
+işletim sistemindeki tercih kullanılıyor.
+
+- Tema `<html>` üzerine `.dark` sınıfı olarak uygulanıyor, renkler CSS
+  değişkenlerinden geliyor (`src/index.css`).
+- `index.html` içinde küçük bir betik, React yüklenmeden önce temayı
+  uyguluyor — sayfa boyanırken flaş olmuyor.
+- 3B sahneler de temayı okuyor: karanlıkta kabuk rengi `shade()` ile açılıyor
+  (siyah zemin üzerinde kaybolmasın diye), ışık şiddetleri ve ortam rengi
+  sertleşiyor. Etiket kâğıt rengi her iki temada aynı kalıyor.
+- `color-scheme` ve `theme-color` meta etiketleri temayla eşleşiyor.
+- `theme.ts` içindeki `shade(hex, amount)` rengi açar (`+`) veya koyultur (`−`),
+  3B modellerde karanlık zemine göre ayar yapmak için kullanılıyor.
+
 ## Yapı
 
 ```
+index.html                  tema betiği (ilk boyama öncesi .dark uygular)
+public/
+  favicon.svg               kaset silüetli site ikonu
+  images/                   kaset etiketi görselleri (yer tutucu *.svg)
 src/
+  index.css                 palet değişkenleri, .dark varyantı, temel katman
+  theme.ts                  useTheme() + shade() yardımcıları
+  data/
+    content.json            tüm içerik
+    site.ts                 tipler + türetilmiş listeler (featured, projects)
   components/
+    Nav.tsx                 navbar
+    Footer.tsx              alt bilgi
+    ThemeToggle.tsx         güneş/ay düğmesi
+    icons.tsx               CassetteGlyph, ArrowUpRight
+    interaction.ts          ortak süre / easing / ok hareketi / sınıflar
+    ui.tsx                  Action, TextLink, NavUnderline
+    sections.tsx            sayfalar arası ortak bloklar
     three/
       AtariConsole.tsx      prosedürel oyun konsolu modeli
       AtariScene.tsx        ana sayfa sahnesi (konsol + takılı kaset)
       Cassette.tsx          tek kaset (ExtrudeGeometry silüeti)
       CassetteTile.tsx      proje kartı / öne çıkan kaset için 3B sahne
       makeLabelTexture.ts   etiket + kabuk dokularını canvas'ta üretir
-    sections.tsx            sayfalar arası ortak bloklar
   pages/
-    Home.tsx        tek sayfalık açılış (landing)
-    Projects.tsx    tüm kasetler
-    About.tsx       eski rota → ana sayfa
-  data/
-    content.json    tüm içerik
-public/
-  images/           kaset etiketi görselleri
+    Home.tsx                tek sayfalık açılış (landing)
+    Projects.tsx            tüm kasetler
+    About.tsx               eski rota → ana sayfa
 ```
 
 ## Notlar

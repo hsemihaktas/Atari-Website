@@ -1,5 +1,6 @@
 import { CassetteTile } from '@/components/three/CassetteTile'
 import { ArrowUpRight } from '@/components/icons'
+import { ARROW } from '@/components/interaction'
 import { ContactCta, SectionHead } from '@/components/sections'
 import { projects, site } from '@/data/site'
 
@@ -36,7 +37,7 @@ export default function Projects() {
                         {p.role} · {p.years}
                       </p>
                     </div>
-                    <ArrowUpRight className="h-4 w-4 shrink-0 text-mute transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
+                    <ArrowUpRight className={`text-mute group-hover:text-ink ${ARROW}`} />
                   </div>
                 </a>
               </article>

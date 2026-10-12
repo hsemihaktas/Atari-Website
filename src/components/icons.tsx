@@ -1,12 +1,20 @@
 /** Küçük kaset ikonu — logo ve liste işaretleri için. */
 export function CassetteGlyph({ className = '' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <rect x="2.5" y="5.5" width="19" height="13" rx="2" stroke="currentColor" strokeWidth="1.3" />
-      <rect x="5" y="8" width="14" height="6" rx="1" fill="currentColor" />
-      <circle cx="9" cy="11" r="1.4" fill="var(--color-paper)" />
-      <circle cx="15" cy="11" r="1.4" fill="var(--color-paper)" />
-      <path d="M7 18.5h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
+      {/* siluet: üstü dik, alt köşeleri pah */}
+      <path
+        d="M6 3.5h20a1.5 1.5 0 0 1 1.5 1.5v16.6l-5.2 5.4a1.5 1.5 0 0 1-1.1.5H10.8a1.5 1.5 0 0 1-1.1-.5L4.5 21.6V5A1.5 1.5 0 0 1 6 3.5Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      {/* etiket */}
+      <rect x="7.6" y="6.6" width="16.8" height="11" rx="1.1" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M8.8 6.6h14.4a1.1 1.1 0 0 1 1.1 1.1v1.9H7.7V7.7a1.1 1.1 0 0 1 1.1-1.1Z" fill="currentColor" />
+      {/* tutuş tırtıkları */}
+      <path d="M9.6 20.2v4M12.6 20.2v4M15.6 20.2v4M18.6 20.2v4M21.6 20.2v4"
+        stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
   )
 }

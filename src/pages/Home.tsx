@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import { AtariScene } from '@/components/three/AtariScene'
 import { CassetteTile } from '@/components/three/CassetteTile'
-import { CassetteGlyph, ArrowUpRight } from '@/components/icons'
+import { ArrowUpRight, CassetteGlyph } from '@/components/icons'
+import { Action } from '@/components/ui'
+import { ARROW, textLinkClass } from '@/components/interaction'
 import {
   ContactCta,
   LinkList,
@@ -52,19 +54,10 @@ export default function Home() {
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3">
-            <a
-              href="#isler"
-              className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-[16px] text-paper transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              Seçili işler
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-hair-strong px-5 py-2.5 text-[16px] transition-colors duration-300 hover:border-ink"
-            >
+            <Action href="#isler">Seçili işler</Action>
+            <Action href={`mailto:${site.email}`} variant="outline" arrow={false}>
               İletişim
-            </a>
+            </Action>
           </div>
 
           <div className="mt-12 flex items-center gap-3 label text-mute">
@@ -133,12 +126,9 @@ export default function Home() {
         <SectionHead
           title="Seçili işler"
           meta={
-            <Link
-              to="/projeler"
-              className="inline-flex items-center gap-1.5 border-b border-hair-strong pb-0.5 transition-colors hover:border-ink"
-            >
+            <Link to="/projeler" className={textLinkClass()}>
               Tümü ({projects.length})
-              <ArrowUpRight className="h-3.5 w-3.5" />
+              <ArrowUpRight className={ARROW} />
             </Link>
           }
         />
@@ -156,7 +146,7 @@ export default function Home() {
                   <h3 className="truncate text-[15px] font-medium tracking-tight sm:text-[20px]">
                     {p.name}
                   </h3>
-                  <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-mute transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink sm:block" />
+                  <ArrowUpRight className={`hidden text-mute group-hover:text-ink sm:block ${ARROW}`} />
                 </div>
                 <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-mute sm:text-[12px]">
                   {p.role} · {p.years}

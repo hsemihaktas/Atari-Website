@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ArrowUpRight } from './icons'
+import { TextLink } from './ui'
 import type { LinkRow, Project } from '@/data/site'
 
 /** Bölüm başlığı + sağda sayaç/bağlantı. */
@@ -92,15 +92,14 @@ export function ProjectRow({
       </ul>
 
       {project.link && (
-        <a
+        <TextLink
           href={project.link}
           target="_blank"
           rel="noreferrer"
-          className="mt-8 inline-flex w-fit items-center gap-1.5 border-b border-hair-strong pb-0.5 text-[16px] transition-colors hover:border-ink"
+          className="mt-8 text-[16px]"
         >
           Ziyaret et
-          <ArrowUpRight className="h-4 w-4" />
-        </a>
+        </TextLink>
       )}
     </article>
   )
@@ -138,13 +137,12 @@ export function ContactCta({ heading, email }: { heading: string; email: string 
       <h2 className="max-w-[16ch] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.1] tracking-[-0.035em]">
         {heading}
       </h2>
-      <a
+      <TextLink
         href={`mailto:${email}`}
-        className="mt-8 inline-flex items-center gap-2 border-b border-hair-strong pb-1 text-[clamp(1.05rem,1.8vw,1.4rem)] transition-colors hover:border-ink"
+        className="mt-8 text-[clamp(1.05rem,1.8vw,1.4rem)]"
       >
         {email}
-        <ArrowUpRight className="h-5 w-5" />
-      </a>
+      </TextLink>
     </section>
   )
 }

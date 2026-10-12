@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 import type { Project } from '@/data/site'
+import { shade, useTheme } from '@/theme'
 import { makeLabelTexture, makeShellTexture } from './makeLabelTexture'
 
 /* ---- Atari 2600 kaset ölçüleri (dünya birimi) ---- */
@@ -82,9 +83,13 @@ function useCartGeometry() {
 
 /** Eski Atari (2600) kaseti — tamamen prosedürel geometri. */
 export function Cassette({ project, distance = 0 }: Props) {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
   const geometry = useCartGeometry()
   const label = useMemo(() => makeLabelTexture(project), [project])
-  const shellMap = useMemo(() => makeShellTexture(project.shell), [project.shell])
+  // karanlıkta kabuk açılır, aksi halde siyah zemin içinde kaybolur
+  const shellHex = dark ? shade(project.shell, 0.3) : project.shell
+  const shellMap = useMemo(() => makeShellTexture(shellHex), [shellHex])
 
   useEffect(
     () => () => {
@@ -119,7 +124,7 @@ export function Cassette({ project, distance = 0 }: Props) {
       <mesh position={[0, H / 2 - 0.01, -0.1]}>
         <boxGeometry args={[W * 0.54, 0.06, D * 0.52]} />
         <meshStandardMaterial
-          color="#08080a"
+          color={dark ? "#141418" : "#08080a"}
           roughness={0.85}
           envMapIntensity={0.25}
           transparent
@@ -131,7 +136,7 @@ export function Cassette({ project, distance = 0 }: Props) {
       <mesh position={[0, LABEL_Y, FRONT - 0.02]} castShadow>
         <boxGeometry args={[LABEL_W + 0.11, LABEL_H + 0.11, 0.1]} />
         <meshStandardMaterial
-          color="#0a0a0c"
+          color={dark ? "#16161b" : "#0a0a0c"}
           roughness={0.7}
           envMapIntensity={0.3}
           transparent
@@ -158,7 +163,7 @@ export function Cassette({ project, distance = 0 }: Props) {
       <mesh position={[0, GRIP_TOP + 0.085, FRONT - 0.012]}>
         <boxGeometry args={[W - 0.62, 0.075, 0.085]} />
         <meshStandardMaterial
-          color="#09090b"
+          color={dark ? "#141419" : "#09090b"}
           roughness={0.85}
           envMapIntensity={0.2}
           transparent
@@ -175,7 +180,7 @@ export function Cassette({ project, distance = 0 }: Props) {
         >
           <boxGeometry args={[RIB_T, RIB_H, 0.1]} />
           <meshStandardMaterial
-            color={project.shell}
+            color={shellHex}
             roughness={0.42}
             metalness={0}
             envMapIntensity={0.6}
@@ -188,7 +193,12 @@ export function Cassette({ project, distance = 0 }: Props) {
       {/* ---------- Tırtıkların altındaki koyu bant ---------- */}
       <mesh position={[0, FOOT_Y, FRONT - 0.006]}>
         <boxGeometry args={[FOOT_W, 0.055, 0.05]} />
-        <meshStandardMaterial color="#0c0c0e" roughness={0.8} transparent opacity={opacity} />
+        <meshStandardMaterial
+          color={dark ? "#1b1b21" : "#0c0c0e"}
+          roughness={0.8}
+          transparent
+          opacity={opacity}
+        />
       </mesh>
     </group>
   )

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
+import { useTheme } from '@/theme'
 
 /* ---- Ölçüler (gerçek oranlara yakın: uzun ve alçak gövde) ---- */
 const W = 6.2
@@ -10,6 +11,7 @@ const WALL = 0.34 // üst çerçeve kalınlığı
 const RIM = 0.13 // çerçevenin yüksekliği
 const DECK = H / 2 - RIM // üst tablasının yüzeyi
 const SHELL = '#141417'
+const DARK_SHELL = '#2c2c35'
 
 /* ---- Ön panel dokusu: markasız, sade ---- */
 function makeFrontTexture() {
@@ -70,10 +72,10 @@ function makeFrontTexture() {
 }
 
 /** Mat, hafif dokulu plastik. */
-function plastic(color = SHELL, rough = 0.62, clear = 0.22) {
+function plastic(color?: string, rough = 0.62, clear = 0.22) {
   return (
     <meshPhysicalMaterial
-      color={color}
+      color={color ?? SHELL}
       roughness={rough}
       metalness={0}
       clearcoat={clear}
@@ -85,22 +87,24 @@ function plastic(color = SHELL, rough = 0.62, clear = 0.22) {
 
 /** Kaymalı anahtar: yuvası + neredeyse düz duran kolu. */
 function SlideSwitch({ position, flip }: { position: [number, number, number]; flip: number }) {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
   return (
     <group position={position}>
       {/* yuva */}
       <mesh>
         <boxGeometry args={[0.4, 0.07, 0.96]} />
-        <meshStandardMaterial color="#06060a" roughness={0.92} />
+        <meshStandardMaterial color={dark ? "#15151a" : "#06060a"} roughness={0.92} />
       </mesh>
       {/* kenar */}
       <mesh position={[0, 0.04, 0]}>
         <boxGeometry args={[0.48, 0.03, 1.04]} />
-        <meshStandardMaterial color="#232329" roughness={0.68} />
+        <meshStandardMaterial color={dark ? "#3d3d47" : "#232329"} roughness={0.68} />
       </mesh>
       {/* kol */}
       <mesh position={[0, 0.1, flip * 0.2]} rotation={[flip * 0.16, 0, 0]} castShadow>
         <boxGeometry args={[0.17, 0.14, 0.54]} />
-        <meshStandardMaterial color="#b8b2a4" roughness={0.5} />
+        <meshStandardMaterial color={dark ? "#d8d2c4" : "#b8b2a4"} roughness={0.5} />
       </mesh>
     </group>
   )
@@ -108,6 +112,8 @@ function SlideSwitch({ position, flip }: { position: [number, number, number]; f
 
 /** Joystick: delik + toz yuvası + şaft + topuz. */
 function Joystick({ position, index }: { position: [number, number, number]; index: number }) {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
   const knob = useRef<THREE.Group>(null)
 
   useFrame((s) => {
@@ -123,29 +129,29 @@ function Joystick({ position, index }: { position: [number, number, number]; ind
       {/* delik */}
       <mesh position={[0, 0.01, 0]}>
         <cylinderGeometry args={[0.56, 0.52, 0.1, 32]} />
-        <meshStandardMaterial color="#07070a" roughness={0.95} />
+        <meshStandardMaterial color={dark ? "#15151a" : "#07070a"} roughness={0.95} />
       </mesh>
       {/* toz yuvası halkası */}
       <mesh position={[0, 0.06, 0]}>
         <cylinderGeometry args={[0.62, 0.62, 0.06, 32]} />
-        <meshStandardMaterial color="#1c1c20" roughness={0.8} />
+        <meshStandardMaterial color={dark ? "#2e2e37" : "#1c1c20"} roughness={0.8} />
       </mesh>
       <group ref={knob} position={[0, 0.08, 0]}>
         {/* şaft */}
         <mesh position={[0, 0.3, 0]} castShadow>
           <cylinderGeometry args={[0.11, 0.16, 0.6, 24]} />
-          <meshStandardMaterial color="#26262b" roughness={0.4} metalness={0.15} />
+          <meshStandardMaterial color={dark ? "#4a4a55" : "#26262b"} roughness={0.4} metalness={0.15} />
         </mesh>
         {/* bilezik */}
         <mesh position={[0, 0.16, 0]}>
           <cylinderGeometry args={[0.2, 0.2, 0.07, 24]} />
-          <meshStandardMaterial color="#3a3a40" roughness={0.35} metalness={0.3} />
+          <meshStandardMaterial color={dark ? "#5a5a66" : "#3a3a40"} roughness={0.35} metalness={0.3} />
         </mesh>
         {/* topuz */}
         <mesh position={[0, 0.74, 0]} castShadow>
           <sphereGeometry args={[0.36, 28, 22]} />
           <meshPhysicalMaterial
-            color="#d9d4c6"
+            color={dark ? "#efeade" : "#d9d4c6"}
             roughness={0.38}
             metalness={0}
             clearcoat={0.55}
@@ -159,6 +165,27 @@ function Joystick({ position, index }: { position: [number, number, number]; ind
 
 /** 3B oyun konsolu — prosedürel, markasız, sürükleyerek döndürülür. */
 export function AtariConsole({ children }: { children?: React.ReactNode }) {
+  const [theme] = useTheme()
+  const dark = theme === 'dark'
+  /** karanlıkta kabuk açılır, yoksa siyah zeminde kaybolur */
+  const C = dark
+    ? {
+        shell: DARK_SHELL,
+        rim: '#37373f',
+        deck: '#1f1f26',
+        walls: '#464650',
+        vent: '#15151a',
+        back: '#22222a',
+      }
+    : {
+        shell: SHELL,
+        rim: '#1a1a1e',
+        deck: '#0e0e11',
+        walls: '#26262c',
+        vent: '#07070a',
+        back: '#0b0b0e',
+      }
+
   const front = useMemo(() => makeFrontTexture(), [])
   useEffect(() => () => front.dispose(), [front])
 
@@ -271,57 +298,57 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
       {/* ---------- Ana gövde (çerçevenin altı) ---------- */}
       <mesh position={[0, -RIM / 2, 0]} castShadow receiveShadow>
         <boxGeometry args={[W, H - RIM, D]} />
-        {plastic()}
+        {plastic(C.shell)}
       </mesh>
 
       {/* ---------- Üstteki yükseltilmiş çerçeve ---------- */}
       <mesh position={[-(W - WALL) / 2, DECK + RIM / 2, 0]} castShadow>
         <boxGeometry args={[WALL, RIM, D]} />
-        {plastic('#1a1a1e', 0.55)}
+        {plastic(C.rim, 0.55)}
       </mesh>
       <mesh position={[(W - WALL) / 2, DECK + RIM / 2, 0]} castShadow>
         <boxGeometry args={[WALL, RIM, D]} />
-        {plastic('#1a1a1e', 0.55)}
+        {plastic(C.rim, 0.55)}
       </mesh>
       <mesh position={[0, DECK + RIM / 2, -(D - WALL) / 2]} castShadow>
         <boxGeometry args={[innerW, RIM, WALL]} />
-        {plastic('#1a1a1e', 0.55)}
+        {plastic(C.rim, 0.55)}
       </mesh>
       <mesh position={[0, DECK + RIM / 2, (D - WALL) / 2]} castShadow>
         <boxGeometry args={[innerW, RIM, WALL]} />
-        {plastic('#1a1a1e', 0.55)}
+        {plastic(C.rim, 0.55)}
       </mesh>
 
       {/* ---------- Üst tabla (kaset yuvasının etrafında dört parça) ---------- */}
       <mesh position={[0, DECK, (-innerH + slotBack) / 2]} receiveShadow>
         <boxGeometry args={[innerW, 0.05, slotBack + innerH]} />
-        {plastic('#0e0e11', 0.78, 0.05)}
+        {plastic(C.deck, 0.78, 0.05)}
       </mesh>
       <mesh position={[0, DECK, (slotFront + innerH) / 2]} receiveShadow>
         <boxGeometry args={[innerW, 0.05, innerH - slotFront]} />
-        {plastic('#0e0e11', 0.78, 0.05)}
+        {plastic(C.deck, 0.78, 0.05)}
       </mesh>
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * (SLOT_W / 2 + (innerW - SLOT_W) / 4), DECK, SLOT_Z]} receiveShadow>
           <boxGeometry args={[(innerW - SLOT_W) / 2, 0.05, SLOT_D]} />
-          {plastic('#0e0e11', 0.78, 0.05)}
+          {plastic(C.deck, 0.78, 0.05)}
         </mesh>
       ))}
 
       {/* ---------- Kaset yuvasının içi ---------- */}
       <mesh position={[0, DECK - 0.34, SLOT_Z]}>
         <boxGeometry args={[SLOT_W, 0.06, SLOT_D]} />
-        <meshStandardMaterial color="#050507" roughness={0.96} />
+        <meshStandardMaterial color={dark ? "#101015" : "#050507"} roughness={0.96} />
       </mesh>
       {[-1, 1].map((s) => (
         <mesh key={`w${s}`} position={[s * (SLOT_W / 2 - 0.04), DECK - 0.17, SLOT_Z]}>
           <boxGeometry args={[0.08, 0.34, SLOT_D]} />
-          {plastic('#26262c', 0.55)}
+          {plastic(C.walls, 0.55)}
         </mesh>
       ))}
       <mesh position={[0, DECK - 0.17, SLOT_Z - SLOT_D / 2 + 0.04]}>
         <boxGeometry args={[SLOT_W, 0.34, 0.08]} />
-        {plastic('#26262c', 0.55)}
+        {plastic(C.walls, 0.55)}
       </mesh>
       {children}
 
@@ -341,11 +368,11 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
       <group position={[1.5, DECK + 0.03, -2.25]}>
         <mesh>
           <cylinderGeometry args={[0.36, 0.36, 0.08, 28]} />
-          <meshStandardMaterial color="#08080a" roughness={0.9} />
+          <meshStandardMaterial color={C.vent} roughness={0.9} />
         </mesh>
         <mesh position={[0, 0.09, 0]}>
           <cylinderGeometry args={[0.22, 0.25, 0.13, 28]} />
-          <meshStandardMaterial color="#3c3c44" roughness={0.45} />
+          <meshStandardMaterial color={dark ? "#5e5e6a" : "#3c3c44"} roughness={0.45} />
         </mesh>
       </group>
 
@@ -354,7 +381,7 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
         [0.34, 0.24, 0.14, 0.04].map((y, i) => (
           <mesh key={`${s}${i}`} position={[s * (W / 2 + 0.004), -0.12 - y, 0]}>
             <boxGeometry args={[0.05, 0.07, D - 1.6]} />
-            <meshStandardMaterial color="#07070a" roughness={0.95} />
+            <meshStandardMaterial color={dark ? "#15151a" : "#07070a"} roughness={0.95} />
           </mesh>
         )),
       )}
@@ -362,12 +389,12 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
       {/* ---------- Arka bağlantı paneli ---------- */}
       <mesh position={[0, -0.02, -(D / 2 + 0.006)]}>
         <planeGeometry args={[W - 1.4, H - 0.5]} />
-        {plastic('#0b0b0e', 0.85, 0.05)}
+        {plastic(C.back, 0.85, 0.05)}
       </mesh>
       {[-1.3, -0.6, 0.6, 1.3].map((x) => (
         <mesh key={x} position={[x, -0.34, -(D / 2 + 0.02)]}>
           <boxGeometry args={[0.42, 0.16, 0.05]} />
-          <meshStandardMaterial color="#2a2a30" roughness={0.5} metalness={0.3} />
+          <meshStandardMaterial color={dark ? "#4c4c58" : "#2a2a30"} roughness={0.5} metalness={0.3} />
         </mesh>
       ))}
 
@@ -387,7 +414,7 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
       {/* ---------- Alt kenar + ayaklar ---------- */}
       <mesh position={[0, -H / 2 + 0.07, 0]}>
         <boxGeometry args={[W - 0.06, 0.14, D - 0.06]} />
-        {plastic('#0a0a0c', 0.85, 0)}
+        {plastic(C.vent, 0.85, 0)}
       </mesh>
       {[
         [-1, -1],
@@ -397,7 +424,7 @@ export function AtariConsole({ children }: { children?: React.ReactNode }) {
       ].map(([sx, sz]) => (
         <mesh key={`${sx}${sz}`} position={[sx * (W / 2 - 0.5), -H / 2 - 0.02, sz * (D / 2 - 0.6)]}>
           <cylinderGeometry args={[0.28, 0.24, 0.1, 20]} />
-          <meshStandardMaterial color="#08080a" roughness={0.95} />
+          <meshStandardMaterial color={dark ? "#15151a" : "#07070a"} roughness={0.95} />
         </mesh>
       ))}
     </group>
