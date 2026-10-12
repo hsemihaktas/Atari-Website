@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { AtariScene } from '@/components/three/AtariScene'
 import { CassetteTile } from '@/components/three/CassetteTile'
-import { ArrowUpRight, CassetteGlyph } from '@/components/icons'
+import { ArrowUpRight, MapPin } from '@/components/icons'
 import { Action, RichText } from '@/components/ui'
 import { ARROW, textLinkClass } from '@/components/interaction'
 import {
@@ -23,8 +23,8 @@ export default function Home() {
       {/* ---------------- Hero — tam ekran, Atari sağda ---------------- */}
       <section className="grid min-h-[100svh] lg:grid-cols-2">
         <div className="flex flex-col justify-center px-6 pt-32 pb-14 md:px-10 lg:col-start-1 lg:row-start-1 lg:py-28 lg:pr-14 xl:pr-24">
-          <div className="flex items-center gap-2.5">
-            <CassetteGlyph className="h-5 w-5" />
+          <div className="flex items-center gap-2">
+            <MapPin className="h-3.5 w-3.5 shrink-0 text-mute" />
             <span className="label text-mute">{site.location}</span>
           </div>
           <p className="label mt-8 text-mute">{site.title}</p>

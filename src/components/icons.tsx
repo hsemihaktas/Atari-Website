@@ -19,6 +19,21 @@ export function CassetteGlyph({ className = '' }: { className?: string }) {
   )
 }
 
+/** Konum işareti — şehir/ülke satırlarında. */
+export function MapPin({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M8 14.5S13 10.2 13 6.9A5 5 0 1 0 3 6.9C3 10.2 8 14.5 8 14.5Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+      <circle cx="8" cy="6.9" r="1.7" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
+  )
+}
+
 export function ArrowUpRight({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" fill="none" className={className} aria-hidden="true">
