@@ -8,10 +8,22 @@
     "location": "Istanbul, Türkiye",
     "email": "hey@rewosama.com",
     "socials": [
-      { "label": "GitHub", "href": "https://github.com" },
-      { "label": "X", "href": "https://x.com" },
-      { "label": "LinkedIn", "href": "https://linkedin.com" },
-      { "label": "Read.cv", "href": "https://read.cv" }
+      {
+        "label": "GitHub",
+        "href": "https://github.com"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://linkedin.com"
+      },
+      {
+        "label": "Read.cv",
+        "href": "https://read.cv"
+      }
     ]
   },
   "about": [
@@ -49,7 +61,11 @@
       "image": "/images/arc.svg",
       "art": "scan",
       "summary": "Tabs, spaces and the command palette, reconsidered. Took it from zero to product with a team of 40+.",
-      "tags": ["Design system", "Prototyping", "Web platform"],
+      "tags": [
+        "Design system",
+        "Prototyping",
+        "Web platform"
+      ],
       "link": "https://arc.net"
     },
     {
@@ -64,7 +80,11 @@
       "image": "/images/lumen.svg",
       "art": "beam",
       "summary": "Real-time portfolio analysis for open markets. A study in calming down data-dense interfaces.",
-      "tags": ["Data visualisation", "Finance", "iOS"],
+      "tags": [
+        "Data visualisation",
+        "Finance",
+        "iOS"
+      ],
       "link": "https://example.com"
     },
     {
@@ -79,7 +99,11 @@
       "image": "/images/atlas.svg",
       "art": "dots",
       "summary": "A touch interface library for embedded systems. 120 components, one design language, zero dependencies.",
-      "tags": ["Design engineering", "Component library", "Touch"],
+      "tags": [
+        "Design engineering",
+        "Component library",
+        "Touch"
+      ],
       "link": "https://example.com"
     },
     {
@@ -94,7 +118,11 @@
       "image": "/images/paper.svg",
       "art": "scan",
       "summary": "My own Notion clone. Still used by 10,000 people a month, and fully open source.",
-      "tags": ["Indie developer", "Open source", "Databases"],
+      "tags": [
+        "Indie developer",
+        "Open source",
+        "Databases"
+      ],
       "link": "https://github.com"
     },
     {
@@ -109,7 +137,11 @@
       "image": "/images/riso.svg",
       "art": "dots",
       "summary": "A pixel art editor that runs in the browser. My most used and least profitable project.",
-      "tags": ["Canvas", "WebGL", "Side project"],
+      "tags": [
+        "Canvas",
+        "WebGL",
+        "Side project"
+      ],
       "link": "https://example.com"
     }
   ],
@@ -178,16 +210,40 @@
       "feedHeading": "Writing",
       "contactHeading": "Let's make something.",
       "capabilities": [
-        ["Product design", "End-to-end flow, from research to the last pixel."],
-        ["Design systems", "Component libraries, token architecture, documentation."],
-        ["Interactive interfaces", "Three.js, WebGL, motion design and prototyping."],
-        ["Front-end engineering", "React, TypeScript, performance and accessibility."]
+        [
+          "Product design",
+          "End-to-end flow, from research to the last pixel."
+        ],
+        [
+          "Design systems",
+          "Component libraries, token architecture, documentation."
+        ],
+        [
+          "Interactive interfaces",
+          "Three.js, WebGL, motion design and prototyping."
+        ],
+        [
+          "Front-end engineering",
+          "React, TypeScript, performance and accessibility."
+        ]
       ],
       "quickFacts": [
-        ["Location", "Istanbul, Türkiye"],
-        ["Focus", "Design + code"],
-        ["Experience", "8+ years"],
-        ["Status", "Open to new projects"]
+        [
+          "Location",
+          "Istanbul, Türkiye"
+        ],
+        [
+          "Focus",
+          "Design + code"
+        ],
+        [
+          "Experience",
+          "8+ years"
+        ],
+        [
+          "Status",
+          "Open to new projects"
+        ]
       ]
     },
     "projects": {
@@ -211,6 +267,16 @@
     },
     "link": {
       "visit": "Visit"
+    },
+    "notFound": {
+      "code": "404",
+      "kicker": "No cartridge",
+      "title": "Nothing is loaded in this slot.",
+      "body": "The page you're after isn't in the drawer. It may have been renamed, or it never existed — in which case we invented it.",
+      "back": "Back home",
+      "projects": "See the projects",
+      "label": "Unknown game",
+      "sceneCaption": "Home Arcade · Slot empty"
     }
   }
 }

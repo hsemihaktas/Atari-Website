@@ -1,3 +1,5 @@
+import { copyFileSync, existsSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -49,9 +51,39 @@ function absoluteOgUrls(): Plugin {
   }
 }
 
+/**
+ * SPA derlemesinde `404.html` üretir.
+ *
+ * Vercel (ve Netlify) bilinmeyen adreslerde `index.html`'i değil `404.html`'i
+ * arıyor. O dosya olmazsa sunucunun kendi hata sayfası dönüyor ve React
+ * hiç çalışmıyor — bu yüzden kendi 404 sayfamız yerine Vercel'in kutusu
+ * görünüyor.
+ *
+ * Aynı dosya kopyalandığı için uygulama içindeki `path="*"` rotası da aynı
+ * sayfayı gösteriyor; sunucu 404 kodu dönerken sayfa doğru render ediliyor.
+ */
+function spaFallbackHtml(): Plugin {
+  return {
+    name: 'spa-404-html',
+    apply: 'build',
+    // Vite 8'de closeBundle build sırasında çalışmıyor; writeBundle güvenilir.
+    writeBundle(options, bundle) {
+      const outDir = options.dir ?? resolve(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
+      const index = resolve(outDir, 'index.html')
+      // index.html bu bundle'da değilse tekrar dene
+      const fromBundle = Object.values(bundle).find((c) => c.fileName === 'index.html')
+      if (!existsSync(index)) {
+        if (!fromBundle) return
+        copyFileSync(resolve(outDir, fromBundle.fileName), index)
+      }
+      copyFileSync(index, resolve(outDir, '404.html'))
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), absoluteOgUrls()],
+  plugins: [react(), tailwindcss(), absoluteOgUrls(), spaFallbackHtml()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

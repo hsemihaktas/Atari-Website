@@ -21,10 +21,16 @@ const CART_Z = 0.45 // yuvanın merkeziyle aynı hiza
 
 /**
  * Kamerayı sahne oranına göre konsolu kadraja oturtur.
+ *
+ * `scale` kameraya hedeflenen kadraj boyutunu çarpar: değeri 1'den büyükse
+ * kamera uzaklaşır ve model küçülür. Dar kutularda (ör. 404 sayfası) modelin
+ * kutudan taşmaması için 1'den büyük veriliyor.
+ *
  * Geniş-kısa canvas'ta üstte/altta boşluk kalır; o boşluğun bir kısmını
  * kullanarak modeli yukarı kaydırır ki alttaki başlıkla çakışmasın.
+ * `liftMax` ile bu kaydırma sınırlandırılabilir.
  */
-function CameraFit() {
+function CameraFit({ scale = 1, liftMax = 0.45 }: { scale?: number; liftMax?: number }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera
   const size = useThree((s) => s.size)
 
@@ -33,32 +39,33 @@ function CameraFit() {
     const vFov = (camera.fov * Math.PI) / 180
     const half = Math.tan(vFov / 2)
 
-    const distH = FIT_H / 2 / half
-    const distW = FIT_W / 2 / half / aspect
+    const distH = (FIT_H * scale) / 2 / half
+    const distW = (FIT_W * scale) / 2 / half / aspect
     const d = Math.max(distH, distW) * 1.04
 
     const visibleH = 2 * d * half
-    const slack = Math.max(0, visibleH - FIT_H) / 2
-    const lift = Math.min(0.45, slack * 0.3)
+    const slack = Math.max(0, visibleH - FIT_H * scale) / 2
+    const lift = Math.min(liftMax, slack * 0.3)
 
     camera.position.copy(DIR).multiplyScalar(d)
     camera.lookAt(0, 0.35 - lift, 0)
     camera.near = d / 12
     camera.far = d * 4
     camera.updateProjectionMatrix()
-  }, [camera, size.width, size.height])
+  }, [camera, size.width, size.height, scale, liftMax])
 
   return null
 }
 
 /** Ana sayfa sahnesi: 3B oyun konsolu ve takılı kaset. */
-function Scene() {
+function Scene({ emptySlot }: { emptySlot: boolean }) {
   const [theme] = useTheme()
   const { projects } = useContent()
   const dark = theme === 'dark'
   const cart = useRef<THREE.Group>(null)
 
   useFrame((s) => {
+    if (emptySlot) return
     const g = cart.current
     if (!g) return
     const t = s.clock.elapsedTime
@@ -111,15 +118,33 @@ function Scene() {
       </Environment>
 
       <AtariConsole>
-        <group ref={cart} position={[0, CART_Y, CART_Z]}>
-          <Cassette project={projects[0]} />
-        </group>
+        {!emptySlot && (
+          <group ref={cart} position={[0, CART_Y, CART_Z]}>
+            <Cassette project={projects[0]} />
+          </group>
+        )}
       </AtariConsole>
     </>
   )
 }
 
-export function AtariScene({ className }: { className?: string }) {
+/**
+ * Ana sayfa sahnesi. `emptySlot` ile konsolun kaset yuvası boş bırakılır —
+ * 404 sayfası "kaset takılı değil" fikri için kullanıyor.
+ */
+export function AtariScene({
+  className,
+  emptySlot = false,
+  scale = 1,
+  liftMax,
+}: {
+  className?: string
+  emptySlot?: boolean
+  /** modeli küçültür (dar kutular için) */
+  scale?: number
+  /** yukarı kaydırma sınırı */
+  liftMax?: number
+}) {
   return (
     <div className={className}>
       <Canvas
@@ -130,8 +155,8 @@ export function AtariScene({ className }: { className?: string }) {
         style={{ background: 'transparent' }}
       >
         <Suspense fallback={null}>
-          <CameraFit />
-          <Scene />
+          <CameraFit scale={scale} liftMax={liftMax} />
+          <Scene emptySlot={emptySlot} />
         </Suspense>
       </Canvas>
     </div>

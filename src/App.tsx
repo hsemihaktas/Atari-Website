@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import Home from '@/pages/Home'
 import About from '@/pages/About'
 import Projects from '@/pages/Projects'
+import NotFound from '@/pages/NotFound'
 import { useContent } from '@/i18n'
 
 function ScrollToTop() {
@@ -27,7 +28,7 @@ export default function App() {
         <Route path="/hakkimda" element={<About />} />
         <Route path="/about" element={<About />} />
         <Route path="/projeler" element={<Projects />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <script type="application/ld+json">

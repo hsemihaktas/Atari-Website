@@ -84,6 +84,17 @@ export type UiStrings = {
     cassetteUnit: string
     contactHeading: string
   }
+  notFound: {
+    code: string
+    kicker: string
+    title: string
+    body: string
+    back: string
+    projects: string
+    /** sahte kaset etiketinde görünen oyun adı */
+    label: string
+    sceneCaption: string
+  }
   footer: { pages: string; else: string; builtWith: string }
   theme: {
     toDark: string

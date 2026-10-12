@@ -177,6 +177,7 @@ assets/
   fonts/                    satori için statik font örnekleri
 scripts/
   generate-og.tsx           OG görselini üretir (npm run og)
+vercel.json                cache başlıkları (statik dosyalar)
 public/
   favicon.svg               kaset silüetli site ikonu
   og.png                    paylaşım görseli — build'de yeniden üretilir
@@ -220,3 +221,9 @@ src/
   kısa bir ataletle devam ediyor. Zeminde gölge yok, havada duruyor.
 - Kamera, konsolu ekran oranına göre otomatik kadraja alıyor — pencereyi
   boyutlandırdığında model taşmıyor.
+- Vercel bilinmeyen adreslerde `404.html`'i arıyor, `index.html`'i değil.
+  `vite.config.ts` içindeki `spaFallbackHtml` build sonrası `dist/404.html`'i
+  üretiyor; aksi halde sunucunun kutu 404 sayfası görünür.
+- `AtariScene` üç ayarlı: `emptySlot` kaseti gizler (404 sayfası),
+  `scale` kamerayı uzaklaştırıp modeli küçültür, `liftMax` yukarı kaydırmayı
+  sınırlar. Değerler 1'den büyük oldukça model küçülür.
