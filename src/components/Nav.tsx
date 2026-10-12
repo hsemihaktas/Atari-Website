@@ -82,7 +82,9 @@ export function Nav() {
           <NavItem to="/projects" active={isActive('/projects')}>
             {t.nav.projects}
           </NavItem>
-          <NavItem href={`mailto:${site.email}`}>{t.nav.contact}</NavItem>
+          <NavItem to="/contact" active={isActive('/contact')}>
+            {t.nav.contact}
+          </NavItem>
 
           <span className="h-4 w-px bg-hair" aria-hidden="true" />
 

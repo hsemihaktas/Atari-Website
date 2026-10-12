@@ -37,6 +37,12 @@ export function Footer() {
                     <NavUnderline active={false} />
                   </Link>
                 </li>
+                <li>
+                  <Link to="/contact" className={navItemClass(false)}>
+                    {t.nav.contact}
+                    <NavUnderline active={false} />
+                  </Link>
+                </li>
               </ul>
             </div>
 

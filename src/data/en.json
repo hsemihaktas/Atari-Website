@@ -396,6 +396,18 @@
       "repo": "Source code",
       "demo": "Live demo",
       "credits": "Areas"
+    },
+    "contact": {
+      "kicker": "Contact",
+      "headline": "Let's make something **worth keeping**.",
+      "lead": "A product, a system, an experiment — whatever it is, I like hearing about it first. I answer everything, usually within a day.",
+      "emailLabel": "Email",
+      "emailNote": "The shortest route. No forms, no newsletter.",
+      "elsewhere": "Elsewhere",
+      "elsewhereNote": "DMs are open too — whichever is easier for you.",
+      "availability": "Open to new projects",
+      "responseTime": "Usually replies within a day",
+      "basedIn": "Based in {location}"
     }
   }
 }

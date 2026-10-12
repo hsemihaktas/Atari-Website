@@ -396,6 +396,18 @@
       "repo": "Kaynak kodu",
       "demo": "Canlı demo",
       "credits": "Alanlar"
+    },
+    "contact": {
+      "kicker": "İletişim",
+      "headline": "Birlikte **saklamaya değer** bir şey yapalım.",
+      "lead": "Ürün, sistem, deney — ne olursa olsun, önce duymayı severim. Her şeye cevap veriyorum, genelde bir gün içinde.",
+      "emailLabel": "E-posta",
+      "emailNote": "En kısa yol. Form yok, bülten yok.",
+      "elsewhere": "Burada",
+      "elsewhereNote": "DM açık — hangisi sana kolaysa.",
+      "availability": "Yeni projelere açık",
+      "responseTime": "Genelde bir gün içinde dönüyorum",
+      "basedIn": "Konum: {location}"
     }
   }
 }

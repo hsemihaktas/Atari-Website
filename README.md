@@ -248,7 +248,7 @@ src/
   kısa bir ataletle devam ediyor. Zeminde gölge yok, havada duruyor.
 - Kamera, konsolu ekran oranına göre otomatik kadraja alıyor — pencereyi
   boyutlandırdığında model taşmıyor.
-- Rotalar `/`, `/projects`, `/projects/:id`. `About.tsx` eski `/hakkimda` ve
+- Rotalar `/`, `/projects`, `/projects/:id`, `/contact`. `About.tsx` eski `/hakkimda` ve
   `/about` adreslerini ana sayfaya gönderiyor.
 - Vercel bilinmeyen adreslerde `404.html`'i arıyor, `index.html`'i değil.
   `vite.config.ts` içindeki `spaFallbackHtml` build sonrası `dist/404.html`'i

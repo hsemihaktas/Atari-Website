@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import Home from '@/pages/Home'
 import About from '@/pages/About'
 import Projects from '@/pages/Projects'
+import Contact from '@/pages/Contact'
 import ProjectDetail from '@/pages/ProjectDetail'
 import NotFound from '@/pages/NotFound'
 import { useContent } from '@/i18n'
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/hakkimda" element={<About />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />
         {/* eski Türkçe adresler — dışarıda paylaşılmış olabilir */}
         <Route path="/projeler" element={<Navigate to="/projects" replace />} />

@@ -112,6 +112,20 @@ export type UiStrings = {
     repo: string
     demo: string
   }
+  contact: {
+    kicker: string
+    /** `**...**` ile kalın parçalar */
+    headline: string
+    lead: string
+    emailLabel: string
+    emailNote: string
+    elsewhere: string
+    elsewhereNote: string
+    availability: string
+    responseTime: string
+    /** `{location}` yerine tutucu */
+    basedIn: string
+  }
   notFound: {
     code: string
     kicker: string
