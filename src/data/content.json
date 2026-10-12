@@ -1,0 +1,192 @@
+{
+  "site": {
+    "name": "Rewosama",
+    "fullName": "Rewosama",
+    "handle": "rewosama",
+    "title": "Tasarımcı & Geliştirici",
+    "city": "İstanbul",
+    "location": "İstanbul, Türkiye",
+    "email": "hey@rewosama.com",
+    "socials": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://linkedin.com"
+      },
+      {
+        "label": "Read.cv",
+        "href": "https://read.cv"
+      }
+    ]
+  },
+  "about": [
+    {
+      "heading": "Başlangıç",
+      "body": [
+        "Endüstri tasarımı okudum, sonra yazılıma kaydım. İkisinin arasında durmak bana çok yaradı: şekil düşüncesini aynı anda koda çevirebiliyorum.",
+        "Bugün çoğunlukla arayüz tasarımı, tasarım sistemleri ve Three.js ile yaptığım etkileşimli deneyler üzerine çalışıyorum."
+      ]
+    },
+    {
+      "heading": "Yaptığım iş",
+      "body": [
+        "Bir fikrin ilk karalamasından çalışan arayüze kadar tüm süreci tek başıma yürütmeyi seviyorum: fikir, tasarım, prototip, sonunda gerçek kod.",
+        "Yazdığım her şeyi bir kutu gibi düşünmeyi seviyorum — sade, düzenli ve üstüne konulabilir."
+      ]
+    },
+    {
+      "heading": "Boşta",
+      "body": [
+        "Tipografiyle uğraşıyorum, eski oyun kasetlerini topluyorum ve arada mutlak programlar yazıyorum."
+      ]
+    }
+  ],
+  "cassettes": [
+    {
+      "id": "arc",
+      "featured": true,
+      "name": "Arc Browser",
+      "role": "Lead Product Designer",
+      "years": "2023–2026",
+      "location": "SF",
+      "shell": "#1c1c1f",
+      "label": "#d8b23f",
+      "image": "/images/arc.svg",
+      "art": "scan",
+      "summary": "Sekmeler, alanlar ve komut paleti üzerine yeniden düşünüldü. 40+ kişilik ekiple, sıfırdan ürüne götürdük.",
+      "tags": [
+        "Tasarım sistemi",
+        "Prototip",
+        "Web platformu"
+      ],
+      "link": "https://arc.net"
+    },
+    {
+      "id": "lumen",
+      "featured": true,
+      "name": "Lumen",
+      "role": "Product Designer",
+      "years": "2022–2025",
+      "location": "NYC",
+      "shell": "#232322",
+      "label": "#c2562c",
+      "image": "/images/lumen.svg",
+      "art": "beam",
+      "summary": "Serbest piyasalar için gerçek zamanlı portföy analizi. Veri yoğun arayüzleri sakinleştirmek üzerine bir çalışma.",
+      "tags": [
+        "Veri görselleştirme",
+        "Finans",
+        "iOS"
+      ],
+      "link": "https://example.com"
+    },
+    {
+      "id": "atlas",
+      "featured": true,
+      "name": "Atlas OS",
+      "role": "Design Engineer",
+      "years": "2021–2024",
+      "location": "Berlin",
+      "shell": "#20242c",
+      "label": "#2f5f91",
+      "image": "/images/atlas.svg",
+      "art": "dots",
+      "summary": "Gömülü sistemler için dokunmatik arayüz kütüphanesi. 120 bileşen, tek bir tasarım dili, sıfır bağımlılık.",
+      "tags": [
+        "Tasarım mühendisliği",
+        "Bileşen kütüphanesi",
+        "Dokunmatik"
+      ],
+      "link": "https://example.com"
+    },
+    {
+      "id": "paper",
+      "featured": false,
+      "name": "Paper",
+      "role": "Founder",
+      "years": "2020–2023",
+      "location": "İstanbul",
+      "shell": "#1d2420",
+      "label": "#4c7d59",
+      "image": "/images/paper.svg",
+      "art": "scan",
+      "summary": "Kendi Notion klonum. Bugün hâlâ ayda 10.000 kişi tarafından kullanılıyor ve tamamen açık kaynak.",
+      "tags": [
+        "Bağımsız geliştirici",
+        "Açık kaynak",
+        "Veritabanı"
+      ],
+      "link": "https://github.com"
+    },
+    {
+      "id": "riso",
+      "featured": false,
+      "name": "Riso",
+      "role": "Side Project",
+      "years": "2019–2022",
+      "location": "İstanbul",
+      "shell": "#241f26",
+      "label": "#6f5a8c",
+      "image": "/images/riso.svg",
+      "art": "dots",
+      "summary": "Tarayıcıda çalışan bir piksel sanat editörü. En çok kullanılan, en az kazandıran proje.",
+      "tags": [
+        "Canvas",
+        "WebGL",
+        "Yan proje"
+      ],
+      "link": "https://example.com"
+    }
+  ],
+  "funList": [
+    {
+      "title": "UnicodeKit",
+      "note": "1988 gibi karakterlerin peşinde koşmak",
+      "href": "https://example.com"
+    },
+    {
+      "title": "Stray characters",
+      "note": "Tipografi her yerde",
+      "href": "https://example.com"
+    },
+    {
+      "title": "Papercups",
+      "note": "En sevdiğim modüler eşyalarım",
+      "href": "https://example.com"
+    },
+    {
+      "title": "Cassette Ripper",
+      "note": "Eski oyun seslerini sayısallaştırmak",
+      "href": "https://example.com"
+    }
+  ],
+  "feed": [
+    {
+      "title": "Biraz karakter",
+      "meta": "Eki 2026",
+      "href": "https://example.com"
+    },
+    {
+      "title": "Kusur",
+      "meta": "Eyl 2026",
+      "href": "https://example.com"
+    },
+    {
+      "title": "İsteğe bağlı boş",
+      "meta": "2025",
+      "href": "https://example.com"
+    },
+    {
+      "title": "Şu an okuduğum kitap",
+      "meta": "2025",
+      "href": "https://example.com"
+    }
+  ]
+}
