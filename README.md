@@ -1,5 +1,7 @@
 # Rewosama — kişisel site
 
+**Demo:** [rewosama.vercel.app](https://rewosama.vercel.app/)
+
 Vite + React + TypeScript + Tailwind v4 + Three.js.
 
 ## Komutlar
@@ -28,14 +30,14 @@ anahtarıyla tutulur ve navbar'daki `EN` / `TR` düğmesiyle değiştirilir.
 
 Her iki JSON'da beş bölüm var:
 
-| bölüm      | içerik                                                   |
-| ---------- | -------------------------------------------------------- |
-| `site`     | ad, unvan, şehir, e-posta, sosyal linkler                |
-| `about`    | hakkımda blokları (başlık + paragraflar)                 |
-| `cassettes`| projeler — etiket yazıları, renkler, özetler, etiketler   |
-| `funList`  | "eğleniyorum" listesi                                     |
-| `feed`     | günlük listesi                                            |
-| `ui`       | arayüz metinleri (butonlar, başlıklar, nav, footer, tema) |
+| bölüm       | içerik                                                    |
+| ----------- | --------------------------------------------------------- |
+| `site`      | ad, unvan, şehir, e-posta, sosyal linkler                 |
+| `about`     | hakkımda blokları (başlık + paragraflar)                  |
+| `cassettes` | projeler — etiket yazıları, renkler, özetler, etiketler   |
+| `funList`   | "eğleniyorum" listesi                                     |
+| `feed`      | günlük listesi                                            |
+| `ui`        | arayüz metinleri (butonlar, başlıklar, nav, footer, tema) |
 
 Arayüz metinleri `ui` altında; böylece buton yazısı ya da bölüm başlığı
 değiştirmek için JSON'u düzenlemek yeterli, koda dokunmana gerek yok.
@@ -53,11 +55,11 @@ değiştirmek için JSON'u düzenlemek yeterli, koda dokunmana gerek yok.
 ### Kodda kullanım
 
 ```tsx
-import { useContent, useT, useLocale } from '@/i18n'
+import { useContent, useT, useLocale } from "@/i18n";
 
-const t = useT()                    // arayüz metinleri
-const { site, projects } = useContent()   // dil değişince yeniden türer
-const { other, setLocale } = useLocale()  // dil değiştirme
+const t = useT(); // arayüz metinleri
+const { site, projects } = useContent(); // dil değişince yeniden türer
+const { other, setLocale } = useLocale(); // dil değiştirme
 ```
 
 - `src/i18n/index.ts` — sözlükler, tipler, hook'lar
@@ -69,21 +71,21 @@ değişiminde güncelleniyor; sekme başlığı da dile uyuyor.
 
 `cassettes` dizisi kasetleri besler:
 
-| alan       | açıklama                                             |
-| ---------- | ---------------------------------------------------- |
-| `id`       | benzersiz anahtar                                     |
-| `featured` | `true` ise ana sayfadaki "Seçili işler"de görünür     |
-| `name`     | kasetin üzerindeki oyun adı                          |
-| `role`     | etiketin sol alt köşesi                              |
-| `years`    | etiketin sağ alt köşesi                              |
-| `location` | etiketin sol alt üst satırı                          |
-| `shell`    | kabuk rengi (koyu plastik)                            |
-| `label`    | etiket zemin rengi (dönemin soluk tonları)            |
-| `image`    | etiket kapağındaki görsel — aşağıya bak             |
-| `summary`  | ana sayfadaki açıklama                               |
-| `tags`     | etiketler                                             |
-| `link`     | dış bağlantı (opsiyonel)                             |
-| `detail`   | detay sayfasının uzun içeriği (aşağıya bak)            |
+| alan       | açıklama                                          |
+| ---------- | ------------------------------------------------- |
+| `id`       | benzersiz anahtar                                 |
+| `featured` | `true` ise ana sayfadaki "Seçili işler"de görünür |
+| `name`     | kasetin üzerindeki oyun adı                       |
+| `role`     | etiketin sol alt köşesi                           |
+| `years`    | etiketin sağ alt köşesi                           |
+| `location` | etiketin sol alt üst satırı                       |
+| `shell`    | kabuk rengi (koyu plastik)                        |
+| `label`    | etiket zemin rengi (dönemin soluk tonları)        |
+| `image`    | etiket kapağındaki görsel — aşağıya bak           |
+| `summary`  | ana sayfadaki açıklama                            |
+| `tags`     | etiketler                                         |
+| `link`     | dış bağlantı (opsiyonel)                          |
+| `detail`   | detay sayfasının uzun içeriği (aşağıya bak)       |
 
 Yeni kaset eklemek için `cassettes` dizisine bir nesne daha ekle — 3B model,
 etiket dokusu, kart ve `/projects/<id>` detay sayfası otomatik üretilir.
@@ -94,14 +96,14 @@ etiket dokusu, kart ve `/projects/<id>` detay sayfası otomatik üretilir.
 yoksa o bölüm hiç render edilmez.** `detail` olmayan bir proje bile sayfasını
 açar, yalnızca `summary` gösterilir.
 
-| alan         | açıklama                                    |
-| ------------ | ------------------------------------------- |
-| `lede`       | başlığın altındaki tek satır özet           |
-| `description`| ana anlatım, bir veya birkaç paragraf       |
-| `features`   | yapılan işlerin listesi                    |
-| `stack`      | kullanılan teknolojiler                     |
-| `repo`       | kaynak kodu bağlantısı                      |
-| `demo`       | canlı demo bağlantısı                       |
+| alan          | açıklama                              |
+| ------------- | ------------------------------------- |
+| `lede`        | başlığın altındaki tek satır özet     |
+| `description` | ana anlatım, bir veya birkaç paragraf |
+| `features`    | yapılan işlerin listesi               |
+| `stack`       | kullanılan teknolojiler               |
+| `repo`        | kaynak kodu bağlantısı                |
+| `demo`        | canlı demo bağlantısı                 |
 
 ```jsonc
 "detail": {
@@ -165,12 +167,12 @@ Vercel, Netlify ve kendi sunucun için aynı komut geçerli.
 Sitedeki her tıklanabilir öğe tek bir sistemden geliyor, kopyala-yapıştır
 stiller yok:
 
-| rol            | nerede                                  | davranış                                   |
-| -------------- | --------------------------------------- | ------------------------------------------ |
-| `Action`       | hero butonları                          | hap; `solid` ve `outline` birbirinin aynası |
-| `TextLink`     | "Ziyaret et", CTA e-postası, "Tümü (n)" | alt çizgi + ok birlikte hareket eder      |
-| `NavItem`      | navbar ve footer bağlantıları           | metin + soldan açılan ince çizgi         |
-| `iconButton`   | tema düğmesi                            | çerçevesiz ikon; hover'da yumuşak daire   |
+| rol          | nerede                                  | davranış                                    |
+| ------------ | --------------------------------------- | ------------------------------------------- |
+| `Action`     | hero butonları                          | hap; `solid` ve `outline` birbirinin aynası |
+| `TextLink`   | "Ziyaret et", CTA e-postası, "Tümü (n)" | alt çizgi + ok birlikte hareket eder        |
+| `NavItem`    | navbar ve footer bağlantıları           | metin + soldan açılan ince çizgi            |
+| `iconButton` | tema düğmesi                            | çerçevesiz ikon; hover'da yumuşak daire     |
 
 - `solid` hover'da `outline`'a, `outline` hover'da `solid`'a dönüşüyor.
 - Süre, easing ve ok hareketi tek yerden geliyor:
