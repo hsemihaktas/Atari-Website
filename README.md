@@ -4,6 +4,11 @@
 
 Vite + React + TypeScript + Tailwind v4 + Three.js.
 
+## Lisans
+
+Bu proje [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) ile lisanslanmıştır.
+Ticari kullanım için izin gereklidir — detaylar için [LICENSE](./LICENSE) dosyasına bakın.
+
 ## Komutlar
 
 ```bash
